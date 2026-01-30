@@ -16,16 +16,16 @@ KEY_MAP = {
 
 # -------- Background paths --------
 bg_paths = [
-    r"C:\Users\nisay butbul\Desktop\משחק\back1.jpg",
-    r"C:\Users\nisay butbul\Desktop\משחק\back21.png",
-    r"C:\Users\nisay butbul\Desktop\משחק\back22.png",
-    r"C:\Users\nisay butbul\Desktop\משחק\back23.png"
+    r"assets\backgrounds\back1.jpg",
+    r"assets\backgrounds\back21.png",
+    r"assets\backgrounds\back22.png",
+    r"assets\backgrounds\back23.png"
 ]
 
 # -------- sound --------
 pygame.mixer.init()
-click_sound = pygame.mixer.Sound(r"C:\Users\nisay butbul\Desktop\משחק\202314__7778__click-1.mp3")
-hover_sound = pygame.mixer.Sound(r"C:\Users\nisay butbul\Desktop\משחק\405159__rayolf__btn_hover_2.wav")
+click_sound = pygame.mixer.Sound(r"202314__7778__click-1.mp3")
+hover_sound = pygame.mixer.Sound(r"405159__rayolf__btn_hover_2.wav")
 
 
 # -------- Win check --------
@@ -133,13 +133,9 @@ class Button:
 
 
 
-
-
-
-
 # -------- Run TicTacToe --------
 def run_tictactoe(screen, clock, board_path, x_path, o_path, button_path):
-    font = pygame.font.Font(r"C:\Users\nisay butbul\Desktop\משחק\assets\Jersey10-Regular.ttf", 40)
+    font = pygame.font.Font(r"assets/Jersey10-Regular.ttf", 40)
 
     # Load backgrounds
     backgrounds = []
