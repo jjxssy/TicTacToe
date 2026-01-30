@@ -8,7 +8,7 @@ def main():
     screen = pygame.display.set_mode((800, 600))
     pygame.display.set_caption("Menu")
     clock = pygame.time.Clock()
-    font = pygame.font.Font(r"C:\Users\nisay butbul\Desktop\משחק\assets\Jersey10-Regular.ttf", 100)
+    font = pygame.font.Font(r"C:\Users\nisay butbul\Desktop\משחק\assets\Jersey10-Regular.ttf", 50)
 
     # -------- Animated title --------
     text = "Tic Tac Toe"
@@ -56,9 +56,11 @@ def main():
     time = 0
 
     # -------- Button --------
+    btn_exit_img = pygame.image.load(BTN)
     btn_img = pygame.image.load(BTN_play)
     btn_img = pygame.transform.scale(btn_img, (100, 100))
     play_btn = Button(400, 300, btn_img, "", font,100,100)
+    exit_button = Button(400, 400, btn_exit_img, "Exit", font,100,100)
 
     running = True
     while running:
@@ -90,6 +92,8 @@ def main():
                     )
                     if result == "EXIT":
                         running = False
+                if exit_button.click(mouse):
+                    running = False
 
         # -------- Smooth animated letters --------
         for l in letters:
@@ -99,6 +103,8 @@ def main():
         # -------- Button --------
         play_btn.hover(mouse)
         play_btn.update(screen)
+        exit_button.hover(mouse)
+        exit_button.update(screen)
 
         pygame.display.flip()
 

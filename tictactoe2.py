@@ -128,7 +128,7 @@ class Button:
 
 # -------- Run TicTacToe --------
 def run_tictactoe(screen, clock, board_path, x_path, o_path, button_path):
-    font = pygame.font.SysFont("cambria", 40)
+    font = pygame.font.Font(r"C:\Users\nisay butbul\Desktop\משחק\assets\Jersey10-Regular.ttf", 40)
 
     # Load backgrounds
     backgrounds = []
