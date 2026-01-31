@@ -24,8 +24,8 @@ bg_paths = [
 
 # -------- sound --------
 pygame.mixer.init()
-click_sound = pygame.mixer.Sound(r"C:\Users\nisay butbul\Desktop\משחק\202314__7778__click-1.mp3")
-hover_sound = pygame.mixer.Sound(r"C:\Users\nisay butbul\Desktop\משחק\405159__rayolf__btn_hover_2.wav")
+click_sound = pygame.mixer.Sound(r"C:\Users\nisay butbul\Desktop\משחק\sfx\202314__7778__click-1.mp3")
+hover_sound = pygame.mixer.Sound(r"C:\Users\nisay butbul\Desktop\משחק\sfx\405159__rayolf__btn_hover_2.wav")
 
 
 # -------- Win check --------
@@ -85,7 +85,7 @@ class SpriteManager:
 
 # -------- Button --------
 class Button:
-    def __init__(self, x, y, image, text, font, scale_x, scale_y,click_sound, hover_sound):
+    def __init__(self, x, y, image, text, font, scale_x, scale_y, click_sound, hover_sound):
         self.original_image = pygame.transform.scale(image, (scale_x, scale_y))
         self.image = self.original_image
         self.font = font
@@ -101,7 +101,6 @@ class Button:
         self.is_hovered = False
         self.click_sound = click_sound
         self.hover_sound = hover_sound
-
 
     def update(self, screen):
         screen.blit(self.image, self.rect)
@@ -132,9 +131,38 @@ class Button:
                 self.is_hovered = False
 
 
+class PlayingCard:
+    def __init__(self, x, y, image):
+        self.image = image
+        self.rect = self.image.get_rect(center=(x, y))
+        self.dragging = False
+        self.offset = (0, 0)
+
+    def update(self, screen):
+        if self.dragging:
+            mx, my = pygame.mouse.get_pos()
+            self.rect.center = (mx - self.offset[0], my - self.offset[1])
+        screen.blit(self.image, self.rect)
+
+    def hover(self, pos):
+        if self.rect.collidepoint(pos):
+            if not self.is_hovered:
+                self.image = pygame.transform.scale(self.original_image, self.hover_size)
+                self.rect = self.image.get_rect(center=self.rect.center)
+                self.text_rect = self.text.get_rect(center=self.rect.center)
+                self.is_hovered = True
+                if self.hover_sound:
+                    self.hover_sound.play()
+
+        else:
+            if self.is_hovered:
+                self.image = pygame.transform.scale(self.original_image, self.base_size)
+                self.rect = self.image.get_rect(center=self.rect.center)
+                self.text_rect = self.text.get_rect(center=self.rect.center)
+                self.is_hovered = False
 
 
-
+point1 = 10
 
 
 # -------- Run TicTacToe --------
@@ -149,7 +177,7 @@ def run_tictactoe(screen, clock, board_path, x_path, o_path, button_path):
         img.set_alpha(0)
         backgrounds.append(img)
 
-    fade_speed = 2
+    fade_speed = 5
     current_bg = 0
 
     # Load board and sprites
@@ -158,15 +186,17 @@ def run_tictactoe(screen, clock, board_path, x_path, o_path, button_path):
     o_img = pygame.transform.scale(pygame.image.load(o_path), (150, 150))
     btn_img = pygame.transform.scale(pygame.image.load(button_path), (150, 150))
 
-    restart_btn = Button(400, 300, btn_img, "Restart", font,150,150,click_sound=click_sound,hover_sound=hover_sound)
-
+    restart_btn = Button(400, 300, btn_img, "Restart", font, 150, 150, click_sound=click_sound, hover_sound=hover_sound)
+    #card1 = PlayingCard(100, 100, x_img, 100, 50)
     available = list(range(1, 10))
     player = SpriteManager(x_img)
     robot = SpriteManager(o_img)
     turn = "PLAYER"
     show_btn = False
     screen.fill(pygame.Color("black"))
-
+    dragged_card = None
+    cards = []
+    cards.append(PlayingCard(500, 500,x_img))
     # game loop
     while True:
         clock.tick(60)
@@ -186,11 +216,35 @@ def run_tictactoe(screen, clock, board_path, x_path, o_path, button_path):
 
         # -------- Events --------
         for event in pygame.event.get():
+
             if event.type == pygame.QUIT:
                 return "EXIT"
+
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                 return "MENU"
 
+            # ----- MOUSE (cards) -----
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                for card in reversed(cards):
+                    if card.rect.collidepoint(event.pos):
+                        dragged_card = card
+                        card.dragging = True
+                        mx, my = event.pos
+                        card.offset = (mx - card.rect.centerx,
+                                       my - card.rect.centery)
+                        cards.remove(card)
+                        cards.append(card)
+                        break
+
+            if event.type == pygame.MOUSEBUTTONUP:
+                if dragged_card:
+                    dragged_card.dragging = False
+                    dragged_card = None
+
+
+
+
+            # -------- Restart button --------
             if event.type == pygame.MOUSEBUTTONDOWN and show_btn:
                 if restart_btn.click(mouse):
                     available = list(range(1, 10))
@@ -201,6 +255,7 @@ def run_tictactoe(screen, clock, board_path, x_path, o_path, button_path):
                     turn = "PLAYER"
                     show_btn = False
 
+            # -------- Player turn (keyboard) --------
             if event.type == pygame.KEYDOWN and turn == "PLAYER":
                 if event.key in KEY_MAP:
                     move = KEY_MAP[event.key]
@@ -212,11 +267,10 @@ def run_tictactoe(screen, clock, board_path, x_path, o_path, button_path):
                             turn = "END"
                             screen.fill(pygame.Color("black"))
                             show_btn = True
-
                         else:
                             turn = "ROBOT"
 
-        # -------- Robot turn --------
+        # -------- Robot turn (outside event loop) --------
         if turn == "ROBOT" and available:
             pygame.time.delay(300)
             move = bestMove(available, robot.moves, player.moves)
@@ -225,7 +279,15 @@ def run_tictactoe(screen, clock, board_path, x_path, o_path, button_path):
 
             if check_win(robot.moves) or not available:
                 turn = "END"
+                global point1
+                point1 -= 1
+                print(point1)
                 show_btn = True
+
+                if point1 == 0:
+                    print("game over")
+                    screen.fill(pygame.Color("black"))
+                    point1 = 10
             else:
                 turn = "PLAYER"
 
@@ -233,8 +295,12 @@ def run_tictactoe(screen, clock, board_path, x_path, o_path, button_path):
         player.draw(screen)
         robot.draw(screen)
 
+        for card in cards:
+            card.update(screen)
+
         if show_btn:
             restart_btn.hover(mouse)
             restart_btn.update(screen)
 
         pygame.display.flip()
+

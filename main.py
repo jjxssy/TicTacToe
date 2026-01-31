@@ -1,7 +1,7 @@
 import math
 import pygame
 from tictactoe2 import Button, run_tictactoe
-import tictactoe2
+
 
 
 def main():
@@ -32,13 +32,12 @@ def main():
 
     # -------- PATHS --------
     BOARD = r"C:\Users\nisay butbul\Desktop\משחק\board.png"
-    XIMG = r"C:\Users\nisay butbul\Desktop\משחק\x.png"
+    XIMG = r"C:\Users\nisay butbul\Desktop\משחק\xing.png"
     OIMG = r"C:\Users\nisay butbul\Desktop\משחק\circle.jpg"
     BTN = r"C:\Users\nisay butbul\Desktop\משחק\button.jpg"
     BTN_PLAY = r"C:\Users\nisay butbul\Desktop\משחק\play_new.png"
-    click = pygame.mixer.Sound(r"C:\Users\nisay butbul\Desktop\משחק\202314__7778__click-1.mp3")
-    hover_sound = pygame.mixer.Sound(r"C:\Users\nisay butbul\Desktop\משחק\405159__rayolf__btn_hover_2.wav")
-
+    click = pygame.mixer.Sound(r"C:\Users\nisay butbul\Desktop\משחק\sfx\202314__7778__click-1.mp3")
+    hover_sound = pygame.mixer.Sound(r"C:\Users\nisay butbul\Desktop\משחק\sfx\405159__rayolf__btn_hover_2.wav")
     bg_paths = [
         r"C:\Users\nisay butbul\Desktop\משחק\back1.jpg",
         r"C:\Users\nisay butbul\Desktop\משחק\back2.png",
