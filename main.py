@@ -11,8 +11,6 @@ def main():
     pygame.display.set_caption("Menu")
     clock = pygame.time.Clock()
 
-
-
     font = pygame.font.Font(
         r"assets/Jersey10-Regular.ttf", 100
     )
@@ -70,8 +68,8 @@ def main():
     )
     exit_img = pygame.image.load(BTN)
 
-    play_btn = Button(400, 300, play_img, "", font, 100, 100, click_sound= click ,hover_sound=hover_sound)
-    exit_btn = Button(400, 420, exit_img, "Exit", font1, 100, 100 ,click_sound=click ,hover_sound= hover_sound)
+    play_btn = Button(400, 300, play_img, "", font, 100, 100, click_sound=click, hover_sound=hover_sound)
+    exit_btn = Button(400, 420, exit_img, "Exit", font1, 100, 100, click_sound=click, hover_sound=hover_sound)
 
     running = True
     while running:
