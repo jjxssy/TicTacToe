@@ -31,18 +31,19 @@ def main():
         x += c.get_width() + 4
 
     # -------- PATHS --------
-    BOARD = r"C:\Users\nisay butbul\Desktop\משחק\board.png"
-    XIMG = r"C:\Users\nisay butbul\Desktop\משחק\xing.png"
-    OIMG = r"C:\Users\nisay butbul\Desktop\משחק\oing.png"
-    BTN = r"C:\Users\nisay butbul\Desktop\משחק\button.jpg"
-    BTN_PLAY = r"C:\Users\nisay butbul\Desktop\משחק\play_new.png"
-    click = pygame.mixer.Sound(r"C:\Users\nisay butbul\Desktop\משחק\sfx\202314__7778__click-1.mp3")
-    hover_sound = pygame.mixer.Sound(r"C:\Users\nisay butbul\Desktop\משחק\sfx\405159__rayolf__btn_hover_2.wav")
+    BOARD = r"assets/board.png"
+    XIMG = r"C:assets/x.png"
+    OIMG = r"assets/circle.jpg"
+    BTN = r"assets/button.jpg"
+    BTN_PLAY = r"assets/play_new.png"
+    click = pygame.mixer.Sound(r"202314__7778__click-1.mp3")
+    hover_sound = pygame.mixer.Sound(r"405159__rayolf__btn_hover_2.wav")
+
     bg_paths = [
-        r"C:\Users\nisay butbul\Desktop\משחק\back1.jpg",
-        r"C:\Users\nisay butbul\Desktop\משחק\back2.png",
-        r"C:\Users\nisay butbul\Desktop\משחק\back3.png",
-        r"C:\Users\nisay butbul\Desktop\משחק\back4.png"
+        r"assets/backgrounds/back1.jpg",
+        r"assets/backgrounds/back2.png",
+        r"assets/backgrounds/back3.png",
+        r"assets/backgrounds/back4.png"
     ]
 
     backgrounds = []
