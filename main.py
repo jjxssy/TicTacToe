@@ -1,6 +1,9 @@
 import math
 import pygame
-from tictactoe2 import Button, run_tictactoe
+from classes.Button import Button
+from tictactoe2 import (
+
+    run_tictactoe)
 
 
 
@@ -8,6 +11,7 @@ def main():
     pygame.init()
     pygame.mixer.init()
     screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+    width, height = screen.get_size()
     pygame.display.set_caption("Menu")
     clock = pygame.time.Clock()
 
@@ -47,11 +51,11 @@ def main():
     backgrounds = []
     for path in bg_paths:
         img = pygame.image.load(path).convert_alpha()
-        img = pygame.transform.scale(img, (800, 600))
+        img = pygame.transform.scale(img, (width, height))
         img.set_alpha(0)
         backgrounds.append(img)
 
-    bg_surface = pygame.Surface((800, 600)).convert_alpha()
+    bg_surface = pygame.Surface((width,height)).convert_alpha()
 
     current_bg = 0
     fade_speed = 4

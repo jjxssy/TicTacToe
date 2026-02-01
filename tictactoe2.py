@@ -196,11 +196,10 @@ def exit():
     sys.exit()
 
 
-# פונקציית עזר לטשטוש
+
 def get_blurred_screenshot(screen, amount=4):
     screenshot = screen.copy()
     size = screenshot.get_size()
-    # הקטנה והגדלה ליצירת אפקט טשטוש (Blur)
     small = pygame.transform.smoothscale(screenshot, (size[0] // amount, size[1] // amount))
     return pygame.transform.smoothscale(small, size)
 
@@ -211,12 +210,13 @@ point1 = 10
 # -------- Run TicTacToe --------
 def run_tictactoe(screen, clock, board_path, x_path, o_path, button_path):
     font = pygame.font.Font(r"assets/Jersey10-Regular.ttf", 40)
+    width, height = screen.get_size()
 
     # Load backgrounds
     backgrounds = []
     for path in bg_paths:
         img = pygame.image.load(path).convert_alpha()
-        img = pygame.transform.scale(img, (800, 600))
+        img = pygame.transform.scale(img, (width, height))
         img.set_alpha(0)
         backgrounds.append(img)
 
@@ -231,8 +231,8 @@ def run_tictactoe(screen, clock, board_path, x_path, o_path, button_path):
 
     restart_btn = Button(400, 300, btn_img, "Restart", font, 150, 150, click_sound=click_sound, hover_sound=hover_sound)
     # card1 = PlayingCard(100, 100, x_img, 100, 50)
-    exitButton = Button(400, 300, btn_img, "exit", font, 150, 150, click_sound=click_sound, hover_sound=hover_sound)
-
+    exitButton = Button(400, 400, btn_img, "exit", font, 150, 150, click_sound=click_sound, hover_sound=hover_sound)
+    mainMenuButton = Button(400,200,btn_img,"Main Menu",font,150,150,click_sound=click_sound, hover_sound=hover_sound)
     available = list(range(1, 10))
     player = SpriteManager(x_img)
     robot = SpriteManager(o_img)
@@ -250,7 +250,6 @@ def run_tictactoe(screen, clock, board_path, x_path, o_path, button_path):
     while True:
         clock.tick(60)
         mouse = pygame.mouse.get_pos()
-
         # אם אנחנו לא בפאוז, נעדכן את הרקע והמשחק
         if not exit_button:
             # -------- Fade backgrounds --------
@@ -278,6 +277,7 @@ def run_tictactoe(screen, clock, board_path, x_path, o_path, button_path):
                 return "EXIT"
 
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                text = "pause menu"
                 if not exit_button:
                     # on click make screenshot and blur it
                     pause_overlay = get_blurred_screenshot(screen)
@@ -287,24 +287,35 @@ def run_tictactoe(screen, clock, board_path, x_path, o_path, button_path):
 
             # ----- MOUSE (cards) -----
             if not exit_button:
-                # לוגיקת עכבר רגילה של המשחק כאן
                 pass
             else:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if exitButton.click(event.pos):
-                        return "MENU"
+                        exit()
+                    if mainMenuButton.click(event.pos):
+                        main_menu()
+                        return "main"
 
         # -------- Drawing Pause Menu --------
         if exit_button:
             if pause_overlay:
                 screen.blit(pause_overlay, (0, 0))
+                screen.blit(font.render(text, True, pygame.Color("black")), (200, 10))
+
+
+
+
+
+
 
             # הוספת שכבת שקיפות כהה מעל הטשטוש
-            darken = pygame.Surface((800, 600), pygame.SRCALPHA)
+            darken = pygame.Surface((width,height), pygame.SRCALPHA)
             darken.fill((0, 0, 0, 100))
             screen.blit(darken, (0, 0))
 
             exitButton.hover(mouse)
             exitButton.update(screen)
+            mainMenuButton.hover(mouse)
+            mainMenuButton.update(screen)
 
         pygame.display.flip()
