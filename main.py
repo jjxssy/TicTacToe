@@ -7,7 +7,7 @@ from tictactoe2 import Button, run_tictactoe
 def main():
     pygame.init()
     pygame.mixer.init()
-    screen = pygame.display.set_mode((800, 600))
+    screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
     pygame.display.set_caption("Menu")
     clock = pygame.time.Clock()
 
@@ -33,7 +33,7 @@ def main():
     # -------- PATHS --------
     BOARD = r"C:\Users\nisay butbul\Desktop\משחק\board.png"
     XIMG = r"C:\Users\nisay butbul\Desktop\משחק\xing.png"
-    OIMG = r"C:\Users\nisay butbul\Desktop\משחק\circle.jpg"
+    OIMG = r"C:\Users\nisay butbul\Desktop\משחק\oing.png"
     BTN = r"C:\Users\nisay butbul\Desktop\משחק\button.jpg"
     BTN_PLAY = r"C:\Users\nisay butbul\Desktop\משחק\play_new.png"
     click = pygame.mixer.Sound(r"C:\Users\nisay butbul\Desktop\משחק\sfx\202314__7778__click-1.mp3")
