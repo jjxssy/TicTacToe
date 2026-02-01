@@ -1,13 +1,13 @@
 import math
 import pygame
 from tictactoe2 import Button, run_tictactoe
-import tictactoe2
+
 
 
 def main():
     pygame.init()
     pygame.mixer.init()
-    screen = pygame.display.set_mode((800, 600))
+    screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
     pygame.display.set_caption("Menu")
     clock = pygame.time.Clock()
 
