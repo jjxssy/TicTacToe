@@ -2,6 +2,8 @@ import sys
 import pygame
 import random
 
+from classes.Button import Button
+
 # -------- Positions --------
 POSITIONS = {
     7: (100, 50), 8: (325, 50), 9: (550, 50),
@@ -230,6 +232,7 @@ def run_tictactoe(screen, clock, board_path, x_path, o_path, button_path):
     restart_btn = Button(400, 300, btn_img, "Restart", font, 150, 150, click_sound=click_sound, hover_sound=hover_sound)
     # card1 = PlayingCard(100, 100, x_img, 100, 50)
     exitButton = Button(400, 300, btn_img, "exit", font, 150, 150, click_sound=click_sound, hover_sound=hover_sound)
+
     available = list(range(1, 10))
     player = SpriteManager(x_img)
     robot = SpriteManager(o_img)
