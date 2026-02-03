@@ -27,7 +27,7 @@ def main():
     chars = [font.render(c, True, (255, 255, 255)) for c in text]
 
     letters = []
-    x = 175
+    x = 575
     for i, c in enumerate(chars):
         letters.append({"surf": c, "x": x, "phase": i * 0.5})
         x += c.get_width() + 4
@@ -37,7 +37,8 @@ def main():
     XIMG = r"C:assets/xing.png"
     OIMG = r"assets/oing.png"
     BTN = r"assets/button.jpg"
-    BTN_PLAY = r"assets/play_new.png"
+    BTN_PLAY = r"assets/play_but.png"
+    BTN_PLAY = pygame.image.load(BTN_PLAY)
     exit_button = r"assets\exit_button.png"
     exit_button = pygame.image.load(exit_button)
     exit_button = pygame.transform.scale(exit_button, (200, 300))
@@ -66,19 +67,18 @@ def main():
     fade_speed = 4
 
     # -------- WAVE --------
-    base_y = 150
+    base_y = 225
     amplitude = 10
     wave_speed = 0.05
     t = 0
 
     # -------- BUTTONS --------
-    play_img = pygame.transform.scale(
-        pygame.image.load(BTN_PLAY), (100, 100)
-    )
-    exit_img = pygame.image.load(BTN)
 
-    play_btn = Button(400, 300, play_img, "", font, 100, 100, click_sound=click, hover_sound=hover_sound)
-    exit_btn = Button(400, 420, exit_button, "", font1, 100, 100, click_sound=click, hover_sound=hover_sound)
+
+
+
+    play_btn = Button(800, 450, BTN_PLAY, "", font, 150, 150, click_sound=click, hover_sound=hover_sound)
+    exit_btn = Button(800, 620, exit_button, "", font1, 150, 150, click_sound=click, hover_sound=hover_sound)
 
     running = True
     while running:

@@ -14,7 +14,7 @@ KEY_MAP = {
     pygame.K_KP4: 4, pygame.K_KP5: 5, pygame.K_KP6: 6,
     pygame.K_KP7: 7, pygame.K_KP8: 8, pygame.K_KP9: 9
 }
-TARGET_RECT = pygame.Rect(550, 50, 150, 150)
+TARGET_RECT = pygame.Rect(1050, 200, 10, 10)
 
 # -------- Background paths --------
 bg_paths = [
@@ -153,6 +153,7 @@ class PlayingCard:
         self.start_pos = (x, y)
         self.rect = self.image.get_rect(center=(x, y))
         self.dragging = False
+        self.locked = False
         self.offset = (0, 0)
 
     def update(self, screen):
@@ -211,6 +212,9 @@ def get_blurred_screenshot(screen, amount=4):
 
 
 point1 = 10
+
+side =  [1,2]
+
 
 
 # -------- Run TicTacToe --------
@@ -291,6 +295,9 @@ def run_tictactoe(screen, clock, board_path, x_path, o_path, button_path):
             # ----- MOUSE (cards) -----
             if event.type == pygame.MOUSEBUTTONDOWN:
                 for card in reversed(cards):
+                    if card.locked:
+                        continue
+
                     if card.rect.collidepoint(event.pos):
                         dragged_card = card
                         card.dragging = True
@@ -303,7 +310,23 @@ def run_tictactoe(screen, clock, board_path, x_path, o_path, button_path):
             if event.type == pygame.MOUSEBUTTONUP:
                 if dragged_card:
                     dragged_card.dragging = False
+
+
+                    if TARGET_RECT.colliderect(dragged_card.rect):
+                        dragged_card.locked = True
+                        # שמירת מרכז לפני שינוי גודל
+                        center = dragged_card.rect.center
+                        if random.choice(side) == 1:
+                            # הקטנה
+                            dragged_card.image = pygame.transform.scale(dragged_card.image, (130, 130))
+                            # עדכון rect אחרי שינוי התמונה
+                            dragged_card.rect = dragged_card.image.get_rect(center=center)
+                    else:
+                        # חוזר למקום ההתחלתי
+                        dragged_card.rect.center = dragged_card.start_pos
                     dragged_card = None
+
+
 
                 # -------- Restart button --------
             if event.type == pygame.MOUSEBUTTONDOWN and show_btn:
@@ -330,6 +353,7 @@ def run_tictactoe(screen, clock, board_path, x_path, o_path, button_path):
                             show_btn = True
                         else:
                             turn = "ROBOT"
+
 
             # -------- Robot turn (outside event loop) --------
             if turn == "ROBOT" and available:
@@ -360,7 +384,7 @@ def run_tictactoe(screen, clock, board_path, x_path, o_path, button_path):
                         return "main"
 
         # -------- Drawing Pause Menu --------
-        turn = "PLAYER"
+
         for card in cards:
             card.update(screen)
         player.draw(screen)
@@ -373,7 +397,6 @@ def run_tictactoe(screen, clock, board_path, x_path, o_path, button_path):
             if pause_overlay:
                 screen.blit(pause_overlay, (0, 0))
                 screen.blit(font.render(text, True, pygame.Color("black")), (800, 50))
-
             # הוספת שכבת שקיפות כהה מעל הטשטוש
             darken = pygame.Surface((width,height), pygame.SRCALPHA)
             darken.fill((0, 0, 0, 100))
@@ -382,6 +405,4 @@ def run_tictactoe(screen, clock, board_path, x_path, o_path, button_path):
             exitButton.update(screen)
             mainMenuButton.hover(mouse)
             mainMenuButton.update(screen)
-
-
         pygame.display.flip()
