@@ -1,14 +1,12 @@
 import sys
 import pygame
 import random
-
 from classes.Button import Button
-
 # -------- Positions --------
 POSITIONS = {
-    7: (100, 50), 8: (325, 50), 9: (550, 50),
-    4: (100, 225), 5: (325, 225), 6: (550, 225),
-    1: (100, 400), 2: (325, 400), 3: (550, 400)
+    7: (300, 50), 8: (525, 50), 9: (850, 50),
+    4: (300, 225), 5: (525, 225), 6: (850, 225),
+    1: (300, 400), 2: (525, 400), 3: (850, 400)
 }
 
 KEY_MAP = {
@@ -25,6 +23,12 @@ bg_paths = [
     r"assets\backgrounds\back22.png",
     r"assets\backgrounds\back23.png"
 ]
+basic_card = "assets/basic_card.png"
+basic_card =pygame.image.load(basic_card)
+basic_card =pygame.transform.scale(basic_card,(200,300))
+exit_button =r"assets\exit_button.png"
+exit_button =pygame.image.load(exit_button)
+exit_button =pygame.transform.scale(exit_button,(200,300))
 
 # -------- sound --------
 pygame.mixer.init()
@@ -88,11 +92,14 @@ class SpriteManager:
 
 # -------- Button --------
 class Button:
-    def __init__(self, x, y, image, text, font, scale_x, scale_y, click_sound, hover_sound):
+    def __init__(self, x, y, image, text, font, scale_x, scale_y, click_sound, hover_sound,arrow =None ):
         self.original_image = pygame.transform.scale(image, (scale_x, scale_y))
         self.image = self.original_image
         self.font = font
         self.text_str = text
+        self.arrow_img = pygame.image.load(r"assets/arrow.png").convert_alpha()
+        self.arrow_img = pygame.transform.scale(self.arrow_img, (200, 200))
+        self.arrow_rect = None
 
         self.rect = self.image.get_rect(center=(x, y))
 
@@ -108,6 +115,11 @@ class Button:
     def update(self, screen):
         screen.blit(self.image, self.rect)
         screen.blit(self.text, self.text_rect)
+        if self.is_hovered and self.arrow_img:
+            arrow_x = self.rect.left - self.arrow_img.get_width()
+            arrow_y = self.rect.centery - self.arrow_img.get_height() // 2
+
+            screen.blit(self.arrow_img, (arrow_x, arrow_y))
 
     def click(self, pos):
         if self.rect.collidepoint(pos):
@@ -131,6 +143,7 @@ class Button:
                 self.image = pygame.transform.scale(self.original_image, self.base_size)
                 self.rect = self.image.get_rect(center=self.rect.center)
                 self.text_rect = self.text.get_rect(center=self.rect.center)
+
                 self.is_hovered = False
 
 
@@ -170,13 +183,6 @@ class PlayingCard:
         self.rect.center = self.start_pos
 
 
-# def pauseMenu():
-
-#     if
-#     elif
-#     elif
-#     elif
-#     else
 
 def save(self, x, y, image):
     self.image = image
@@ -224,15 +230,18 @@ def run_tictactoe(screen, clock, board_path, x_path, o_path, button_path):
     current_bg = 0
 
     # Load board and sprites
-    board = pygame.transform.scale(pygame.image.load(board_path), (200, 200))
+    board = pygame.transform.scale(pygame.image.load(board_path), (600, 600))
     x_img = pygame.transform.scale(pygame.image.load(x_path), (150, 150))
     o_img = pygame.transform.scale(pygame.image.load(o_path), (150, 150))
     btn_img = pygame.transform.scale(pygame.image.load(button_path), (150, 150))
+    exit_button = r"assets\exit_button.png"
+    exit_button = pygame.image.load(exit_button)
+    exit_button = pygame.transform.scale(exit_button, (200, 300))
 
     restart_btn = Button(400, 300, btn_img, "Restart", font, 150, 150, click_sound=click_sound, hover_sound=hover_sound)
-    # card1 = PlayingCard(100, 100, x_img, 100, 50)
-    exitButton = Button(400, 400, btn_img, "exit", font, 150, 150, click_sound=click_sound, hover_sound=hover_sound)
-    mainMenuButton = Button(400,200,btn_img,"Main Menu",font,150,150,click_sound=click_sound, hover_sound=hover_sound)
+
+    exitButton = Button(800, 400, exit_button, "", font, 150, 150, click_sound=click_sound, hover_sound=hover_sound)
+    mainMenuButton = Button(800,200,btn_img,"Main Menu",font,150,150,click_sound=click_sound, hover_sound=hover_sound)
     available = list(range(1, 10))
     player = SpriteManager(x_img)
     robot = SpriteManager(o_img)
@@ -241,10 +250,10 @@ def run_tictactoe(screen, clock, board_path, x_path, o_path, button_path):
     screen.fill(pygame.Color("black"))
     dragged_card = None
     cards = []
-    cards.append(PlayingCard(500, 500, x_img))
+    cards.append(PlayingCard(800, 600, basic_card))
     show9 = False
     exit_button = False
-    pause_overlay = None  # משתנה לשמירת תמונת הטשטוש
+    pause_overlay = None
 
     # game loop
     while True:
@@ -264,12 +273,6 @@ def run_tictactoe(screen, clock, board_path, x_path, o_path, button_path):
                 screen.blit(bg, (0, 0))
             screen.blit(board, (200, 200))
 
-            # כאן יבוא הציור של השחקנים והקלפים (player.draw, וכו')
-            player.draw(screen)
-            robot.draw(screen)
-            for card in cards:
-                card.update(screen)
-
         # -------- Events --------
         for event in pygame.event.get():
 
@@ -286,6 +289,66 @@ def run_tictactoe(screen, clock, board_path, x_path, o_path, button_path):
                     exit_button = False
 
             # ----- MOUSE (cards) -----
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                for card in reversed(cards):
+                    if card.rect.collidepoint(event.pos):
+                        dragged_card = card
+                        card.dragging = True
+                        mx, my = event.pos
+                        card.offset = (mx - card.rect.centerx,my - card.rect.centery)
+                        cards.remove(card)
+                        cards.append(card)
+                        break
+
+            if event.type == pygame.MOUSEBUTTONUP:
+                if dragged_card:
+                    dragged_card.dragging = False
+                    dragged_card = None
+
+                # -------- Restart button --------
+            if event.type == pygame.MOUSEBUTTONDOWN and show_btn:
+                if restart_btn.click(mouse):
+                    available = list(range(1, 10))
+                    player.moves.clear()
+                    player.positions.clear()
+                    robot.moves.clear()
+                    robot.positions.clear()
+                    turn = "PLAYER"
+                    show_btn = False
+
+                # -------- Player turn (keyboard) --------
+            if event.type == pygame.KEYDOWN and turn == "PLAYER":
+                if event.key in KEY_MAP:
+                    move = KEY_MAP[event.key]
+                    if move in available:
+                        player.add_move(move)
+                        available.remove(move)
+
+                        if check_win(player.moves) or not available:
+                            turn = "END"
+                            screen.fill(pygame.Color("black"))
+                            show_btn = True
+                        else:
+                            turn = "ROBOT"
+
+            # -------- Robot turn (outside event loop) --------
+            if turn == "ROBOT" and available:
+                pygame.time.delay(300)
+                move = bestMove(available, robot.moves, player.moves)
+                robot.add_move(move)
+                available.remove(move)
+
+                if check_win(robot.moves) or not available:
+                    turn = "END"
+                    global point1
+                    point1 -= 1
+                    print(point1)
+                    show_btn = True
+
+                    if point1 == 0:
+                        print("game over")
+                        screen.fill(pygame.Color("black"))
+                        point1 = 10
             if not exit_button:
                 pass
             else:
@@ -297,25 +360,28 @@ def run_tictactoe(screen, clock, board_path, x_path, o_path, button_path):
                         return "main"
 
         # -------- Drawing Pause Menu --------
+        turn = "PLAYER"
+        for card in cards:
+            card.update(screen)
+        player.draw(screen)
+        robot.draw(screen)
+
+        if show_btn:
+            restart_btn.hover(mouse)
+            restart_btn.update(screen)
         if exit_button:
             if pause_overlay:
                 screen.blit(pause_overlay, (0, 0))
-                screen.blit(font.render(text, True, pygame.Color("black")), (200, 10))
-
-
-
-
-
-
+                screen.blit(font.render(text, True, pygame.Color("black")), (800, 50))
 
             # הוספת שכבת שקיפות כהה מעל הטשטוש
             darken = pygame.Surface((width,height), pygame.SRCALPHA)
             darken.fill((0, 0, 0, 100))
             screen.blit(darken, (0, 0))
-
             exitButton.hover(mouse)
             exitButton.update(screen)
             mainMenuButton.hover(mouse)
             mainMenuButton.update(screen)
+
 
         pygame.display.flip()

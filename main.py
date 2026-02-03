@@ -33,13 +33,18 @@ def main():
         x += c.get_width() + 4
 
     # -------- PATHS --------
-    BOARD = r"assets/board.png"
-    XIMG = r"C:assets/x.png"
-    OIMG = r"assets/circle.jpg"
+    BOARD = r"assets/new_board.png"
+    XIMG = r"C:assets/xing.png"
+    OIMG = r"assets/oing.png"
     BTN = r"assets/button.jpg"
     BTN_PLAY = r"assets/play_new.png"
+    exit_button = r"assets\exit_button.png"
+    exit_button = pygame.image.load(exit_button)
+    exit_button = pygame.transform.scale(exit_button, (200, 300))
     click = pygame.mixer.Sound(r"202314__7778__click-1.mp3")
     hover_sound = pygame.mixer.Sound(r"405159__rayolf__btn_hover_2.wav")
+    arrow =r"assets/arrow.png"
+    basic_card =r"assets/basic_card.png"
 
     bg_paths = [
         r"assets/backgrounds/back1.jpg",
@@ -73,7 +78,7 @@ def main():
     exit_img = pygame.image.load(BTN)
 
     play_btn = Button(400, 300, play_img, "", font, 100, 100, click_sound=click, hover_sound=hover_sound)
-    exit_btn = Button(400, 420, exit_img, "Exit", font1, 100, 100, click_sound=click, hover_sound=hover_sound)
+    exit_btn = Button(400, 420, exit_button, "", font1, 100, 100, click_sound=click, hover_sound=hover_sound)
 
     running = True
     while running:
