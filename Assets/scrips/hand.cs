@@ -1,36 +1,48 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Sliklak;
 
-public class Hand : MonoBehaviour
+public class HandManager : MonoBehaviour
 {
-    public Deck deck;
-    public GameObject cardPrefab;
-    public Transform handArea;
+    [Header("Setup")]
+    public GameObject cardPrefab;    // ה-Prefab של הקלף הריק (עם תמונה וטקסט)
+    public Transform handPos;       // האובייקט handpos מה-Hierarchy
+    
+    [Header("Deck Data")]
+    public List<Sprite> allCardImages; // רשימת תמונות של כל הקלפים בחפיסה
+    private List<Sprite> deck;         // החפיסה הפעילה ממנה נמשוך
 
-    public List<Card> cardsInHand = new();
+    void Start()
+    {
+        // מעתיקים את רשימת הקלפים לחפיסה הפעילה בתחילת המשחק
+        deck = new List<Sprite>(allCardImages);
+    }
 
     public void DrawCard()
     {
-        Card card = deck.DrawCard();
-        if (card == null) return;
-
-        cardsInHand.Add(card);
-
-        GameObject cardGO = Instantiate(cardPrefab, handArea);
-        cardGO.GetComponent<CardView>().Setup(card);
-    }
-
-    public void DrawCards(int amount)
-    {
-        for (int i = 0; i < amount; i++)
+        // 1. בדיקה אם נשארו קלפים בחפיסה
+        if (deck.Count == 0)
         {
-            DrawCard();
+            Debug.Log("החפיסה ריקה!");
+            return;
         }
-    }
+        Debug.Log("DrawCard clicked");
 
-    //public void RemoveCard(Card card)
-    //{
-     //   cardsInHand.Remove(card);
-   // }
+        // 2. הגרלת מספר רנדומלי לפי כמות הקלפים שנשארו
+        int randomIndex = Random.Range(0, deck.Count);
+        Sprite selectedCard = deck[randomIndex];
+
+        // 3. יצירת הקלף בתוך ה-handpos
+        GameObject newCard = Instantiate(cardPrefab, handPos);
+
+        // 4. עדכון התצוגה של הקלף (בהנחה שיש לקלף רכיב Image)
+        // הערה: וודא שב-Prefab של הקלף יש רכיב Image
+        UnityEngine.UI.Image cardImage = newCard.GetComponentInChildren<UnityEngine.UI.Image>();
+        if (cardImage != null)
+        {
+            cardImage.sprite = selectedCard;
+        }
+
+        // 5. הסרת הקלף מהחפיסה כדי שלא יצא שוב
+        deck.RemoveAt(randomIndex);
+    }
 }

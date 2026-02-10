@@ -1,24 +1,26 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using Sliklak;
 
 public class CardView : MonoBehaviour
 {
-    public Image artwork;
-    public Text cardNameText;
+    [Header("UI")]
+    public Image cardImage;
+    public TMP_Text cardNameText;
 
     private Card cardData;
 
     public void Setup(Card card)
     {
         cardData = card;
-        artwork.sprite = card.cardArtwork;
+
+        cardImage.sprite = card.cardArtwork;
         cardNameText.text = card.cardName;
     }
 
-    public void PlayCard()
+    public Card GetCardData()
     {
-        Debug.Log("Played card: " + cardData.cardName);
-        Destroy(gameObject); // מסיר מהיד ויזואלית
+        return cardData;
     }
 }

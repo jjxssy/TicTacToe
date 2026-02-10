@@ -57,6 +57,7 @@
     <Compile Include="Assets\main_menu\Animations\TextWave.cs" />
     <Compile Include="Assets\scrips\draw_card.cs" />
     <Compile Include="Assets\scrips\cardview.cs" />
+    <Compile Include="Assets\main_menu\Scripts\button_play.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
