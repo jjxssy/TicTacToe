@@ -552,6 +552,7 @@ MonoBehaviour:
   textMesh: {fileID: 1604381053}
   waveSpeed: 2
   waveHeight: 10
+  waveFrequency: 0.01
 --- !u!4 &690193754
 Transform:
   m_ObjectHideFlags: 0
@@ -999,8 +1000,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 519420033}
-        m_TargetAssemblyTypeName: button_play, Assembly-CSharp
-        m_MethodName: click_play
+        m_TargetAssemblyTypeName: ButtonPlay, Assembly-CSharp
+        m_MethodName: ClickPlay
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

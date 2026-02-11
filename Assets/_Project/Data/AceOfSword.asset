@@ -9,13 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 058c291f09466c14dbd63d9b8792c8a2, type: 3}
-  m_Name: iron sword
+  m_Script: {fileID: 11500000, guid: 3d3702709f154f5439347b921bf5fc10, type: 3}
+  m_Name: AceOfSword
   m_EditorClassIdentifier: Assembly-CSharp::Sliklak.Card
-  cardName: iron Sword
-  cardDamage: 2
-  cardMoney: 0
-  cardType: 5
+  cardName: 
+  damage: 0
+  money: 0
+  type: 0
   cardPowerUps: 
   cardPowerDowns: 
-  cardArtwork: {fileID: -2496040466669729985, guid: 39c279b3aee99ff43952afd9dc73c62a, type: 3}
+  cardArtwork: {fileID: 0}
