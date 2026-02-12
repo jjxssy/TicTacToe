@@ -18,4 +18,4 @@ MonoBehaviour:
   type: 0
   cardPowerUps: 
   cardPowerDowns: 
-  cardArtwork: {fileID: 0}
+  cardArtwork: {fileID: -2227294742669426013, guid: f24df2ceaa7e4ed4bb25e139dbb662ff, type: 3}
