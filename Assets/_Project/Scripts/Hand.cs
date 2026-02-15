@@ -18,9 +18,9 @@ public class Hand : MonoBehaviour
 
     private void Update()
     {
-        // For testing/placeholder purposes, we update every frame in editor
+         //For testing/placeholder purposes, we update every frame in editor
         UpdateLayout();
-    }
+   }
 
     public void UpdateLayout()
     {

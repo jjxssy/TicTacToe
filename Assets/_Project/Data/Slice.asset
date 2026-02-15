@@ -19,4 +19,4 @@ MonoBehaviour:
   glowColor: {r: 1, g: 1, b: 1, a: 1}
   powerUps: 
   powerDowns: 
-  artwork: {fileID: -619529626361220285, guid: e5ed1ea84690aee47b25c5becdec2282, type: 3}
+  artwork: {fileID: 21300000, guid: 07962823da8a18e43bcedaef7c34fbea, type: 3}

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d3702709f154f5439347b921bf5fc10, type: 3}
   m_Name: BasicSword
   m_EditorClassIdentifier: Assembly-CSharp::Sliklak.Card
-  cardName: Basic Sword
+  cardName: 
   damage: 0
   money: 0
   type: 0
