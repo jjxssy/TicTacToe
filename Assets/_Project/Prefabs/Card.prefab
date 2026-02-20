@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4500188840695332023}
   - component: {fileID: 8592392383865511143}
   - component: {fileID: 6870561948983800043}
+  - component: {fileID: 4382990195865029056}
   m_Layer: 0
   m_Name: Card
   m_TagString: Untagged
@@ -106,9 +107,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CardDisplay
   data: {fileID: 11400000, guid: 13f7a8c99b5027a48a52999be63c441a, type: 2}
-  artRenderer: {fileID: 4500188840695332023}
-  glowRenderer: {fileID: 4500188840695332023}
+  glowPower: 1.5
   hoverYOffset: 0.5
+  hoverScale: 1.1
+  targetTilemap: {fileID: 0}
 --- !u!61 &6870561948983800043
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -155,3 +157,16 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 2.18, y: 2.98}
   m_EdgeRadius: 0
+--- !u!114 &4382990195865029056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3625961610784274290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20da38c1f4600f54883a4ce2ca0b0c0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Card
+  currentCell: {x: 0, y: 0, z: 0}

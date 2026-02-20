@@ -83,6 +83,10 @@ public class CardDisplay : MonoBehaviour,
     public void OnBeginDrag(PointerEventData eventData)
     {
         if (isPlacedOnMap) return; // לא גוררים קלף שכבר הונח (אלא אם תרצה אחרת)
+        if (isPlacedOnMap || GameManager.Instance.currentState != GameState.PlayerTurn)
+    {
+        return; // השחקן לא יכול לגרור
+    }
         
         isDragging = true;
         originalParent = transform.parent;
@@ -129,17 +133,23 @@ public class CardDisplay : MonoBehaviour,
     {
         isPlacedOnMap = true;
         
-        // מיקום מרכז המשושה
         Vector3 tileWorldPos = targetTilemap.GetCellCenterWorld(cellPos);
-        tileWorldPos.z = -0.01f; // שיהיה טיפה מעל המפה
+        tileWorldPos.z = -0.01f; 
         transform.position = tileWorldPos;
 
-        // שינוי הורה ל-Tilemap (אופציונלי) כדי שיזוז איתו
         transform.SetParent(targetTilemap.transform);
 
-        // שינוי ויזואלי - כאן אתה קובע את הגודל הסופי על המשושה
         transform.localScale = new Vector3(0.15f, 0.15f, 1f); 
-        sr.sortingOrder = originalSortingOrder; // מחזירים לשכבה המקורית
+        sr.sortingOrder = originalSortingOrder; 
+
+        // === השורה החדשה שמחברת ל-BoardManager ===
+        // אנחנו שולחים את המיקום ואת שם הקלף (מה-CardData)
+        if (BoardManager.Instance != null)
+        {
+            BoardManager.Instance.PlaceCard(transform.position, data.cardName);
+        }
+        // ==========================================
+        GameManager.Instance.SetState(GameState.CPUTurn);
         
         Debug.Log("נצמד למשושה: " + cellPos);
     }
@@ -154,5 +164,15 @@ public class CardDisplay : MonoBehaviour,
             Hand hand = originalParent.GetComponent<Hand>();
             if (hand != null) hand.UpdateLayout();
         }
+    }
+
+    public void SetAsPlaced()
+    {
+        isPlacedOnMap = true;
+        transform.localScale = new Vector3(0.15f, 0.15f, 1f); // הגודל הקטן על הלוח
+        if (targetTilemap != null) transform.SetParent(targetTilemap.transform);
+        
+        // אפשר גם לשנות לו צבע טיפה כדי שנבין שזה של המחשב
+        GetComponent<SpriteRenderer>().color = new Color(1f, 0.8f, 0.8f); 
     }
 }
