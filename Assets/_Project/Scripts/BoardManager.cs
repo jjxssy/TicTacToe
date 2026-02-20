@@ -4,42 +4,43 @@ using UnityEngine.Tilemaps;
 
 public class BoardManager : MonoBehaviour
 {
-    public static BoardManager Instance; // סינגלטון כדי שיהיה קל לגשת מכל מקום
+    public static BoardManager Instance; 
     public Tilemap tilemap;
 
-    // עדיף לשמור ID או שם של קלף כדי שהבדיקה תהיה לפי "סוג" ולא לפי אובייקט
-    private Dictionary<Vector3Int, string> board = new Dictionary<Vector3Int, string>();
-    public List<Vector3Int> GetEmptyCells()
-    {
-        List<Vector3Int> emptyCells = new List<Vector3Int>();
+    // המילון כעת שומר את ה-ScriptableObject עצמו כערך
+    private Dictionary<Vector2Int, CardData> board = new Dictionary<Vector2Int, CardData>();
 
-        // cellBounds.allPositionsWithin עובר על כל הריבועים בטווח של ה-Tilemap
+    void Awake() { Instance = this; }
+
+    // פונקציה למציאת משבצות פנויות
+    public List<Vector2Int> GetEmptyCells()
+    {
+        List<Vector2Int> emptyCells = new List<Vector2Int>();
+
         foreach (var pos in tilemap.cellBounds.allPositionsWithin)
         {
-            // אנחנו בודקים: 
-            // 1. האם יש משושה מצויר במיקום הזה?
-            // 2. האם המילון (board) לא מכיל כבר קלף במיקום הזה?
-            if (tilemap.HasTile(pos) && !board.ContainsKey(pos))
+            Vector2Int pos2d = new Vector2Int(pos.x, pos.y);
+
+            if (tilemap.HasTile(pos) && !board.ContainsKey(pos2d))
             {
-                emptyCells.Add(pos);
+                emptyCells.Add(pos2d);
             }
         }
         return emptyCells;
     }
 
-    // כיוונים למשושים (Pointy Top)
-    private Vector3Int[] directions = new Vector3Int[]
+    private Vector2Int[] directions = new Vector2Int[]
     {
-        new Vector3Int(1, 0, 0),  // ימין
-        new Vector3Int(0, 1, 0),  // למעלה-ימין (במערכת של Unity Hex)
-        new Vector3Int(-1, 1, 0)  // למעלה-שמאל
+        new Vector2Int(1, 0),   // ימין
+        new Vector2Int(0, 1),   // למעלה-ימין
+        new Vector2Int(-1, 1)   // למעלה-שמאל
     };
 
-    void Awake() { Instance = this; }
-
-    public void PlaceCard(Vector3 worldPos, string cardName)
+    // שינינו את הפרמטר השני מ-string ל-CardData
+    public void PlaceCard(Vector2 worldPos, CardData cardData)
     {
-        Vector3Int cell = tilemap.WorldToCell(worldPos);
+        Vector3Int cell3d = tilemap.WorldToCell(worldPos);
+        Vector2Int cell = new Vector2Int(cell3d.x, cell3d.y);
 
         if (board.ContainsKey(cell))
         {
@@ -47,8 +48,8 @@ public class BoardManager : MonoBehaviour
             return;
         }
 
-        board[cell] = cardName; // שומרים את שם הקלף במיקום הזה
-        Debug.Log($"הונח קלף {cardName} בתא {cell}");
+        board[cell] = cardData; // שומרים את האובייקט המלא
+        Debug.Log($"הונח קלף {cardData.cardName} בתא {cell}");
 
         CheckWholeBoard();
     }
@@ -57,28 +58,32 @@ public class BoardManager : MonoBehaviour
     {
         foreach (var cell in board.Keys)
         {
-            foreach (Vector3Int dir in directions)
+            foreach (Vector2Int dir in directions)
             {
                 if (CheckLine(cell, dir))
                 {
-                    Debug.Log("🔥 נמצא 3 בשורה מסוג: " + board[cell]);
+                    // עכשיו אפשר לגשת לכל נתון בתוך ה-Class
+                    Debug.Log("🔥 נמצא 3 בשורה מסוג: " + board[cell].cardName);
                 }
             }
         }
     }
 
-    bool CheckLine(Vector3Int start, Vector3Int dir)
+    bool CheckLine(Vector2Int start, Vector2Int dir)
     {
-        string type = board[start];
-        // בודקים אם שני התאים הבאים ברצף מכילים את אותו סוג קלף
-        return GetCardTypeAt(start + dir) == type && 
-               GetCardTypeAt(start + dir * 2) == type;
+        if (!board.ContainsKey(start)) return false;
+
+        CardData type = board[start];
+        
+        // השוואה בין ה-ScriptableObjects עצמם
+        return GetCardAt(start + dir) == type && 
+               GetCardAt(start + dir * 2) == type;
     }
 
-    string GetCardTypeAt(Vector3Int cell)
+    // מחזיר את ה-CardData שנמצא בתא
+    public CardData GetCardAt(Vector2Int cell)
     {
         if (board.ContainsKey(cell)) return board[cell];
         return null;
     }
-
 }

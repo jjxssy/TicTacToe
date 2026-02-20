@@ -146,7 +146,7 @@ public class CardDisplay : MonoBehaviour,
         // אנחנו שולחים את המיקום ואת שם הקלף (מה-CardData)
         if (BoardManager.Instance != null)
         {
-            BoardManager.Instance.PlaceCard(transform.position, data.cardName);
+            BoardManager.Instance.PlaceCard(transform.position, data);
         }
         // ==========================================
         GameManager.Instance.SetState(GameState.CPUTurn);

@@ -62,12 +62,12 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1.5f); // "זמן חשיבה"
 
         // 1. מציאת משבצות פנויות דרך ה-BoardManager
-        List<Vector3Int> possibleMoves = BoardManager.Instance.GetEmptyCells();
+        List<Vector2Int> possibleMoves = BoardManager.Instance.GetEmptyCells();
 
         if (possibleMoves.Count > 0 && cpuDeck.Count > 0)
         {
             // 2. בחירת מהלך אקראי
-            Vector3Int targetCell = possibleMoves[Random.Range(0, possibleMoves.Count)];
+            Vector2Int targetCell = possibleMoves[Random.Range(0, possibleMoves.Count)];
             
             // 3. בחירת קלף אקראי מהדק של המחשב
             CardData cpuCard = cpuDeck[Random.Range(0, cpuDeck.Count)];
@@ -75,17 +75,17 @@ public class GameManager : MonoBehaviour
             // 4. יצירת הקלף ויזואלית על הלוח
             SpawnCPUCard(targetCell, cpuCard);
             
-            // 5. רישום ב-BoardManager לבדיקת 3 בשורה
-            BoardManager.Instance.PlaceCard(BoardManager.Instance.tilemap.GetCellCenterWorld(targetCell), cpuCard.cardName);
+         
+            BoardManager.Instance.PlaceCard(BoardManager.Instance.tilemap.GetCellCenterWorld(new Vector3Int(targetCell.x, targetCell.y, 0)), cpuCard);
         }
 
         yield return new WaitForSeconds(0.5f);
         SetState(GameState.PlayerTurn);
     }
 
-    void SpawnCPUCard(Vector3Int cell, CardData data)
+    void SpawnCPUCard(Vector2Int cell, CardData data)
     {
-        Vector3 spawnPos = BoardManager.Instance.tilemap.GetCellCenterWorld(cell);
+        Vector3 spawnPos = BoardManager.Instance.tilemap.GetCellCenterWorld(new Vector3Int(cell.x, cell.y, 0));
         spawnPos.z = -0.01f;
 
         GameObject newCard = Instantiate(cardPrefab, spawnPos, Quaternion.identity);
