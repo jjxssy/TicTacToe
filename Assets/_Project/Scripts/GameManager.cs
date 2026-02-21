@@ -31,11 +31,13 @@ public class GameManager : MonoBehaviour
     private void OnEnable()
     {
         Deck.OnCardDrawn += HandleCardDrawn;
+        CardDisplay.OnCardPlacedOnBoard += SpawnCardOnBoard;
     }
 
     private void OnDisable()
     {
         Deck.OnCardDrawn -= HandleCardDrawn;
+        CardDisplay.OnCardPlacedOnBoard -= SpawnCardOnBoard;
     }
 
     public void SetState(GameState newState)
@@ -56,24 +58,23 @@ public class GameManager : MonoBehaviour
         newCard.GetComponent<CardDisplay>().LoadCard(data);
     }
 
-    // גרסה אחת ומאוחדת של הלוגיקה
     IEnumerator CPUTurnRoutine()
     {
-        yield return new WaitForSeconds(1.5f); // "זמן חשיבה"
+        yield return new WaitForSeconds(1.5f); 
 
         // 1. מציאת משבצות פנויות דרך ה-BoardManager
         List<Vector2Int> possibleMoves = BoardManager.Instance.GetEmptyCells();
 
         if (possibleMoves.Count > 0 && cpuDeck.Count > 0)
         {
-            // 2. בחירת מהלך אקראי
+            
             Vector2Int targetCell = possibleMoves[Random.Range(0, possibleMoves.Count)];
             
-            // 3. בחירת קלף אקראי מהדק של המחשב
+            
             CardData cpuCard = cpuDeck[Random.Range(0, cpuDeck.Count)];
 
-            // 4. יצירת הקלף ויזואלית על הלוח
-            SpawnCPUCard(targetCell, cpuCard);
+            
+            SpawnCardOnBoard(cpuCard, targetCell);
             
          
             BoardManager.Instance.PlaceCard(BoardManager.Instance.tilemap.GetCellCenterWorld(new Vector3Int(targetCell.x, targetCell.y, 0)), cpuCard);
@@ -83,7 +84,7 @@ public class GameManager : MonoBehaviour
         SetState(GameState.PlayerTurn);
     }
 
-    void SpawnCPUCard(Vector2Int cell, CardData data)
+    public void SpawnCardOnBoard(CardData data, Vector2Int cell)
     {
         Vector3 spawnPos = BoardManager.Instance.tilemap.GetCellCenterWorld(new Vector3Int(cell.x, cell.y, 0));
         spawnPos.z = -0.01f;
@@ -96,4 +97,9 @@ public class GameManager : MonoBehaviour
         // הגדרה שהקלף הונח (כדי שהשחקן לא יזיז אותו)
         display.SetAsPlaced(); 
     }
+    
+
+
+
+    
 }

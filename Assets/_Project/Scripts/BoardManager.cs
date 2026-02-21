@@ -36,7 +36,6 @@ public class BoardManager : MonoBehaviour
         new Vector2Int(-1, 1)   // למעלה-שמאל
     };
 
-    // שינינו את הפרמטר השני מ-string ל-CardData
     public void PlaceCard(Vector2 worldPos, CardData cardData)
     {
         Vector3Int cell3d = tilemap.WorldToCell(worldPos);
@@ -48,7 +47,7 @@ public class BoardManager : MonoBehaviour
             return;
         }
 
-        board[cell] = cardData; // שומרים את האובייקט המלא
+        board[cell] = cardData; 
         Debug.Log($"הונח קלף {cardData.cardName} בתא {cell}");
 
         CheckWholeBoard();
@@ -80,7 +79,6 @@ public class BoardManager : MonoBehaviour
                GetCardAt(start + dir * 2) == type;
     }
 
-    // מחזיר את ה-CardData שנמצא בתא
     public CardData GetCardAt(Vector2Int cell)
     {
         if (board.ContainsKey(cell)) return board[cell];
