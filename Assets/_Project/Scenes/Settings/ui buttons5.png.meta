@@ -1,10 +1,37 @@
 fileFormatVersion: 2
-guid: 34df63aa59b388a498b55098a79c094c
+guid: c425cb47d8d1f9e4f8b9f6a85feac562
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -442370977932292858
-    second: background-Sheet_0
+      213: 2720522104883667335
+    second: ui buttons5_0
+  - first:
+      213: 4840552103998471116
+    second: ui buttons5_1
+  - first:
+      213: -3165609451207868577
+    second: ui buttons5_2
+  - first:
+      213: 2583208883080464583
+    second: ui buttons5_3
+  - first:
+      213: 1157741955403932913
+    second: ui buttons5_4
+  - first:
+      213: -2724733346500632261
+    second: ui buttons5_5
+  - first:
+      213: 7979742662428592713
+    second: ui buttons5_6
+  - first:
+      213: -8510900808771565826
+    second: ui buttons5_7
+  - first:
+      213: 4804731868259943883
+    second: ui buttons5_8
+  - first:
+      213: -205610081337457484
+    second: ui buttons5_9
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +64,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -74,8 +101,8 @@ TextureImporter:
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: 4
-    textureCompression: 0
+    textureFormat: -1
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -100,243 +127,221 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: background-Sheet_0
+      name: ui buttons5_0
       rect:
         serializedVersion: 2
-        x: 1
-        y: 0
-        width: 30
-        height: 29
+        x: 9
+        y: 208
+        width: 70
+        height: 36
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 4d52ff92faa595442be2fa6891a4807a
-      internalID: -442370977932292858
+      spriteID: 7816031c07c31c520800000000000000
+      internalID: 2720522104883667335
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: background-Sheet_1
+      name: ui buttons5_1
       rect:
         serializedVersion: 2
-        x: 32
-        y: 0
-        width: 30
-        height: 29
+        x: 90
+        y: 208
+        width: 74
+        height: 35
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 9643a02edcb62234097d688f200870ae
-      internalID: -418715254
+      spriteID: ccb39930e781d2340800000000000000
+      internalID: 4840552103998471116
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: background-Sheet_2
+      name: ui buttons5_2
       rect:
         serializedVersion: 2
-        x: 63
-        y: 0
-        width: 30
-        height: 29
+        x: 176
+        y: 208
+        width: 71
+        height: 36
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: c9ded60376bd26f4eb1d91087d4e5eb1
-      internalID: -224266198
+      spriteID: f5fb22be9fe7114d0800000000000000
+      internalID: -3165609451207868577
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: background-Sheet_3
+      name: ui buttons5_3
       rect:
         serializedVersion: 2
-        x: 94
-        y: 0
-        width: 30
-        height: 29
+        x: 21
+        y: 167
+        width: 161
+        height: 18
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 58a0b7172dd886642a0edb15196d5b52
-      internalID: 1792416064
+      spriteID: 7c805a0fac669d320800000000000000
+      internalID: 2583208883080464583
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: background-Sheet_4
+      name: ui buttons5_4
       rect:
         serializedVersion: 2
-        x: 125
-        y: 0
-        width: 30
-        height: 29
+        x: 199
+        y: 160
+        width: 35
+        height: 36
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: dda2ba9c28e603749a7a8dc896fc37bb
-      internalID: -1395171657
+      spriteID: 1f4ea69ac20211010800000000000000
+      internalID: 1157741955403932913
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: background-Sheet_5
+      name: ui buttons5_5
       rect:
         serializedVersion: 2
-        x: 156
-        y: 0
-        width: 30
-        height: 29
+        x: 41
+        y: 115
+        width: 68
+        height: 31
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: bddc85c661cab9c43b3da499a9b276f6
-      internalID: -491186796
+      spriteID: b312b26257dcf2ad0800000000000000
+      internalID: -2724733346500632261
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: background-Sheet_6
+      name: ui buttons5_6
       rect:
         serializedVersion: 2
-        x: 187
-        y: 0
-        width: 30
-        height: 29
+        x: 140
+        y: 115
+        width: 66
+        height: 31
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: ade7d63ae38d28e448578561b35e53f7
-      internalID: 1368088419
+      spriteID: 94a06194cadbdbe60800000000000000
+      internalID: 7979742662428592713
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: background-Sheet_7
+      name: ui buttons5_7
       rect:
         serializedVersion: 2
-        x: 218
-        y: 0
-        width: 30
-        height: 29
+        x: 46
+        y: 61
+        width: 53
+        height: 41
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: ef9974da299ccac4c831284d20d3c6d7
-      internalID: 199632714
+      spriteID: ef6069e9ec433e980800000000000000
+      internalID: -8510900808771565826
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: background-Sheet_8
+      name: ui buttons5_8
       rect:
         serializedVersion: 2
-        x: 249
-        y: 0
-        width: 30
-        height: 29
+        x: 152
+        y: 61
+        width: 53
+        height: 40
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 1cd576d15c6af92428fe004fc01a1982
-      internalID: 988621422
+      spriteID: bc502a87d26dda240800000000000000
+      internalID: 4804731868259943883
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: background-Sheet_9
+      name: ui buttons5_9
       rect:
         serializedVersion: 2
-        x: 280
-        y: 0
-        width: 30
-        height: 29
+        x: 12
+        y: 22
+        width: 232
+        height: 30
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 66884df0a05208948b1d0ababc389b62
-      internalID: -409138761
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: background-Sheet_11
-      rect:
-        serializedVersion: 2
-        x: 342
-        y: 0
-        width: 30
-        height: 29
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8f9fb0f1337003445af88e92ff0b498a
-      internalID: 823624445
+      spriteID: 4b444ab68b6852df0800000000000000
+      internalID: -205610081337457484
       vertices: []
       indices: 
       edges: []
@@ -345,7 +350,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: bb64db768622b554cb2693601ec218c3
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -353,22 +358,18 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries:
-      - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":31.0,"y":29.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+      entries: []
     nameFileIdTable:
-      background-Sheet_0: -442370977932292858
-      background-Sheet_1: -418715254
-      background-Sheet_10: 1025339924
-      background-Sheet_11: 823624445
-      background-Sheet_2: -224266198
-      background-Sheet_3: 1792416064
-      background-Sheet_4: -1395171657
-      background-Sheet_5: -491186796
-      background-Sheet_6: 1368088419
-      background-Sheet_7: 199632714
-      background-Sheet_8: 988621422
-      background-Sheet_9: -409138761
+      ui buttons5_0: 2720522104883667335
+      ui buttons5_1: 4840552103998471116
+      ui buttons5_2: -3165609451207868577
+      ui buttons5_3: 2583208883080464583
+      ui buttons5_4: 1157741955403932913
+      ui buttons5_5: -2724733346500632261
+      ui buttons5_6: 7979742662428592713
+      ui buttons5_7: -8510900808771565826
+      ui buttons5_8: 4804731868259943883
+      ui buttons5_9: -205610081337457484
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
