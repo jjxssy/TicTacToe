@@ -31,19 +31,19 @@ public class BoardManager : MonoBehaviour
 
     private Vector2Int[] directions = new Vector2Int[]
     {
-        new Vector2Int(1, 0),   // ימין
-        new Vector2Int(0, 1),   // למעלה-ימין
-        new Vector2Int(-1, 1)   // למעלה-שמאל
+        new Vector2Int(1, 0), 
+        new Vector2Int(0, 1),   
+        new Vector2Int(-1, 1)   
     };
-
-    public void PlaceCard(Vector2 worldPos, CardData cardData)
+/*
+    public void PlaceCard(Vector3 worldPos, CardData cardData)
     {
         Vector3Int cell3d = tilemap.WorldToCell(worldPos);
         Vector2Int cell = new Vector2Int(cell3d.x, cell3d.y);
 
         if (board.ContainsKey(cell))
         {
-            Debug.Log("התא כבר תפוס!");
+            Debug.Log("attempted to place on occupied cell: " + cell);
             return;
         }
 
@@ -52,7 +52,7 @@ public class BoardManager : MonoBehaviour
 
         CheckWholeBoard();
     }
-
+*/
     void CheckWholeBoard()
     {
         foreach (var cell in board.Keys)
@@ -61,8 +61,8 @@ public class BoardManager : MonoBehaviour
             {
                 if (CheckLine(cell, dir))
                 {
-                    // עכשיו אפשר לגשת לכל נתון בתוך ה-Class
-                    Debug.Log("🔥 נמצא 3 בשורה מסוג: " + board[cell].cardName);
+                    
+                    Debug.Log("3 in a row " + board[cell].cardName);
                 }
             }
         }

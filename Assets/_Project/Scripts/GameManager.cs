@@ -1,3 +1,4 @@
+
 using System.Collections; // חשוב בשביל IEnumerator
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,7 +17,7 @@ public class GameManager : MonoBehaviour
     public GameState currentState;
 
     [Header("CPU Settings")]
-    public List<CardData> cpuDeck; // רשימת קלפים שהמחשב יכול להשתמש בהם
+    public List<CardData> cpuDeck; 
 
     private void Awake()
     {
@@ -60,9 +61,9 @@ public class GameManager : MonoBehaviour
 
     IEnumerator CPUTurnRoutine()
     {
+        
         yield return new WaitForSeconds(1.5f); 
 
-        // 1. מציאת משבצות פנויות דרך ה-BoardManager
         List<Vector2Int> possibleMoves = BoardManager.Instance.GetEmptyCells();
 
         if (possibleMoves.Count > 0 && cpuDeck.Count > 0)
@@ -77,24 +78,22 @@ public class GameManager : MonoBehaviour
             SpawnCardOnBoard(cpuCard, targetCell);
             
          
-            BoardManager.Instance.PlaceCard(BoardManager.Instance.tilemap.GetCellCenterWorld(new Vector3Int(targetCell.x, targetCell.y, 0)), cpuCard);
+           //Vector3 cellCenter = BoardManager.Instance.tilemap.GetCellCenterWorld(new Vector3Int((int)targetCell.x, (int)targetCell.y, 0));
         }
-
         yield return new WaitForSeconds(0.5f);
         SetState(GameState.PlayerTurn);
+        
     }
 
     public void SpawnCardOnBoard(CardData data, Vector2Int cell)
     {
         Vector3 spawnPos = BoardManager.Instance.tilemap.GetCellCenterWorld(new Vector3Int(cell.x, cell.y, 0));
-        spawnPos.z = -0.01f;
+        spawnPos.z = -0.05f;
 
         GameObject newCard = Instantiate(cardPrefab, spawnPos, Quaternion.identity);
         CardDisplay display = newCard.GetComponent<CardDisplay>();
         
         display.LoadCard(data);
-        
-        // הגדרה שהקלף הונח (כדי שהשחקן לא יזיז אותו)
         display.SetAsPlaced(); 
     }
     

@@ -90,6 +90,7 @@ public class CardDisplay : MonoBehaviour,
         
         isDragging = true;
         originalParent = transform.parent;
+    
         
         // שמירת מיקום חזרה ליד
         positionBeforeHover = transform.localPosition;
