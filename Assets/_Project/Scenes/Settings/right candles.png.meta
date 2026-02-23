@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 34df63aa59b388a498b55098a79c094c
+guid: 9ca7b0dcaadcfd642a8e7e19ab2e667f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -442370977932292858
-    second: background-Sheet_0
+      213: -8415138178112474590
+    second: right candles_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: background-Sheet_0
+      name: right candles_1
       rect:
         serializedVersion: 2
-        x: 1
+        x: 53
         y: 0
-        width: 30
-        height: 29
+        width: 39
+        height: 49
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,20 +115,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4d52ff92faa595442be2fa6891a4807a
-      internalID: -442370977932292858
+      spriteID: c9da563dddca25b48b10087adc24b575
+      internalID: 1012363724
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: background-Sheet_1
+      name: right candles_2
       rect:
         serializedVersion: 2
-        x: 32
+        x: 99
         y: 0
-        width: 30
-        height: 29
+        width: 39
+        height: 49
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,20 +137,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9643a02edcb62234097d688f200870ae
-      internalID: -418715254
+      spriteID: 18f1c23d6a8a8454ea8a52164304b0b7
+      internalID: -730091463
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: background-Sheet_2
+      name: right candles_3
       rect:
         serializedVersion: 2
-        x: 63
+        x: 145
         y: 0
-        width: 30
-        height: 29
+        width: 39
+        height: 49
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -159,20 +159,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c9ded60376bd26f4eb1d91087d4e5eb1
-      internalID: -224266198
+      spriteID: 33ff9136ebb05d246b2c7878a6986bbd
+      internalID: -2045499219
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: background-Sheet_3
+      name: right candles_4
       rect:
         serializedVersion: 2
-        x: 94
+        x: 191
         y: 0
-        width: 30
-        height: 29
+        width: 39
+        height: 49
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -181,20 +181,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 58a0b7172dd886642a0edb15196d5b52
-      internalID: 1792416064
+      spriteID: 49c5e49b20897e74eb1d9c3f4edf75a9
+      internalID: -1690713260
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: background-Sheet_4
+      name: right candles_5
       rect:
         serializedVersion: 2
-        x: 125
+        x: 237
         y: 0
-        width: 30
-        height: 29
+        width: 39
+        height: 49
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -203,20 +203,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dda2ba9c28e603749a7a8dc896fc37bb
-      internalID: -1395171657
+      spriteID: d8c7b3fc46f356a41b86e3cceed8243f
+      internalID: -1725077610
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: background-Sheet_5
+      name: right candles_6
       rect:
         serializedVersion: 2
-        x: 156
+        x: 283
         y: 0
-        width: 30
-        height: 29
+        width: 39
+        height: 49
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -225,20 +225,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bddc85c661cab9c43b3da499a9b276f6
-      internalID: -491186796
+      spriteID: a796dc56dee371446bf60a99a1123c1c
+      internalID: 827322299
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: background-Sheet_6
+      name: right candles_7
       rect:
         serializedVersion: 2
-        x: 187
+        x: 329
         y: 0
-        width: 30
-        height: 29
+        width: 39
+        height: 49
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -247,20 +247,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ade7d63ae38d28e448578561b35e53f7
-      internalID: 1368088419
+      spriteID: 4bbf1ab1f639e1c41ba832a6b8bbfed4
+      internalID: -895170707
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: background-Sheet_7
+      name: right candles_8
       rect:
         serializedVersion: 2
-        x: 218
+        x: 375
         y: 0
-        width: 30
-        height: 29
+        width: 39
+        height: 49
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -269,20 +269,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ef9974da299ccac4c831284d20d3c6d7
-      internalID: 199632714
+      spriteID: 41f8fd1cab9d2114eb02e0043c433c17
+      internalID: 809849595
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: background-Sheet_8
+      name: right candles_9
       rect:
         serializedVersion: 2
-        x: 249
+        x: 421
         y: 0
-        width: 30
-        height: 29
+        width: 39
+        height: 49
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -291,20 +291,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1cd576d15c6af92428fe004fc01a1982
-      internalID: 988621422
+      spriteID: 7c26e61a263d29b49ba1d94d24f45dfc
+      internalID: 1477079470
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: background-Sheet_9
+      name: right candles_10
       rect:
         serializedVersion: 2
-        x: 280
+        x: 467
         y: 0
-        width: 30
-        height: 29
+        width: 39
+        height: 49
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -313,20 +313,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 66884df0a05208948b1d0ababc389b62
-      internalID: -409138761
+      spriteID: 9e1d7769fc6a51f42bf2d9cf873e3409
+      internalID: -921460072
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: background-Sheet_10
+      name: right candles_11
       rect:
         serializedVersion: 2
-        x: 311
+        x: 513
         y: 0
-        width: 30
-        height: 29
+        width: 39
+        height: 49
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -335,20 +335,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: caec3a35740a87840ae1634478701369
-      internalID: 1025339924
+      spriteID: 44c10ea69be5a9d4fbbf576c0a73c0c6
+      internalID: 1620699134
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: background-Sheet_11
+      name: right candles_12
       rect:
         serializedVersion: 2
-        x: 342
+        x: 559
         y: 0
-        width: 30
-        height: 29
+        width: 39
+        height: 49
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -357,8 +357,118 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8f9fb0f1337003445af88e92ff0b498a
-      internalID: 823624445
+      spriteID: 90e3c407a7c6e1c499c7b858a05697fe
+      internalID: -192019816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: right candles_13
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 0
+        width: 39
+        height: 49
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05d8bfc3521cc554289ac9746efb40f8
+      internalID: -891934863
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: right candles_14
+      rect:
+        serializedVersion: 2
+        x: 651
+        y: 0
+        width: 39
+        height: 49
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e12bd624630d1d40a0347d62237289e
+      internalID: 1370938226
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: right candles_15
+      rect:
+        serializedVersion: 2
+        x: 697
+        y: 0
+        width: 39
+        height: 49
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a1fa322bd383d7f41b86828d3d44d748
+      internalID: 414307769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: right candles_16
+      rect:
+        serializedVersion: 2
+        x: 743
+        y: 0
+        width: 39
+        height: 49
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 249d4fe05872c7b4ebf309ace5e45b48
+      internalID: -948771497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: right candles_0
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 0
+        width: 39
+        height: 49
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4cb0d22c12370344ae5213e9c8361af
+      internalID: -8415138178112474590
       vertices: []
       indices: 
       edges: []
@@ -367,7 +477,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: bb64db768622b554cb2693601ec218c3
+    spriteID: eacfd1f22274aff4b989d6912418fec2
     internalID: 0
     vertices: []
     indices: 
@@ -377,20 +487,25 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":31.0,"y":29.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":46.0,"y":49.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      background-Sheet_0: -442370977932292858
-      background-Sheet_1: -418715254
-      background-Sheet_10: 1025339924
-      background-Sheet_11: 823624445
-      background-Sheet_2: -224266198
-      background-Sheet_3: 1792416064
-      background-Sheet_4: -1395171657
-      background-Sheet_5: -491186796
-      background-Sheet_6: 1368088419
-      background-Sheet_7: 199632714
-      background-Sheet_8: 988621422
-      background-Sheet_9: -409138761
+      right candles_0: -8415138178112474590
+      right candles_1: 1012363724
+      right candles_10: -921460072
+      right candles_11: 1620699134
+      right candles_12: -192019816
+      right candles_13: -891934863
+      right candles_14: 1370938226
+      right candles_15: 414307769
+      right candles_16: -948771497
+      right candles_2: -730091463
+      right candles_3: -2045499219
+      right candles_4: -1690713260
+      right candles_5: -1725077610
+      right candles_6: 827322299
+      right candles_7: -895170707
+      right candles_8: 809849595
+      right candles_9: 1477079470
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
