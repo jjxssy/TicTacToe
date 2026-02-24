@@ -70,15 +70,9 @@ public class GameManager : MonoBehaviour
         {
             
             Vector2Int targetCell = possibleMoves[Random.Range(0, possibleMoves.Count)];
-            
-            
             CardData cpuCard = cpuDeck[Random.Range(0, cpuDeck.Count)];
-
-            
             SpawnCardOnBoard(cpuCard, targetCell);
             
-         
-           //Vector3 cellCenter = BoardManager.Instance.tilemap.GetCellCenterWorld(new Vector3Int((int)targetCell.x, (int)targetCell.y, 0));
         }
         yield return new WaitForSeconds(0.5f);
         SetState(GameState.PlayerTurn);
@@ -88,7 +82,7 @@ public class GameManager : MonoBehaviour
     public void SpawnCardOnBoard(CardData data, Vector2Int cell)
     {
         Vector3 spawnPos = BoardManager.Instance.tilemap.GetCellCenterWorld(new Vector3Int(cell.x, cell.y, 0));
-        spawnPos.z = -0.05f;
+        spawnPos.z = -0.1f;
 
         GameObject newCard = Instantiate(cardPrefab, spawnPos, Quaternion.identity);
         CardDisplay display = newCard.GetComponent<CardDisplay>();

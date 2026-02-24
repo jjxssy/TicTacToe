@@ -12,7 +12,6 @@ public class BoardManager : MonoBehaviour
 
     void Awake() { Instance = this; }
 
-    // פונקציה למציאת משבצות פנויות
     public List<Vector2Int> GetEmptyCells()
     {
         List<Vector2Int> emptyCells = new List<Vector2Int>();
@@ -35,7 +34,7 @@ public class BoardManager : MonoBehaviour
         new Vector2Int(0, 1),   
         new Vector2Int(-1, 1)   
     };
-/*
+
     public void PlaceCard(Vector3 worldPos, CardData cardData)
     {
         Vector3Int cell3d = tilemap.WorldToCell(worldPos);
@@ -52,7 +51,7 @@ public class BoardManager : MonoBehaviour
 
         CheckWholeBoard();
     }
-*/
+
     void CheckWholeBoard()
     {
         foreach (var cell in board.Keys)
