@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
+using System;
 
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(BoxCollider2D))]
@@ -42,13 +43,12 @@ public class CardDisplay : MonoBehaviour,
     void Start()
     {
         if (data != null) LoadCard(data);
-        if (targetTilemap == null) Debug.LogError("נא לגרור Tilemap ל-Inspector!");
-        // אם השדה ריק (מה שקורה בקלון), נחפש את ה-Tilemap בסצנה
         if (targetTilemap == null)
         {
             targetTilemap = GameObject.FindObjectOfType<Tilemap>();
         }
     }
+    public static event Action<CardData, Vector2Int> OnCardPlacedOnBoard; 
 
     public void LoadCard(CardData newData)
     {
@@ -83,9 +83,14 @@ public class CardDisplay : MonoBehaviour,
     public void OnBeginDrag(PointerEventData eventData)
     {
         if (isPlacedOnMap) return; // לא גוררים קלף שכבר הונח (אלא אם תרצה אחרת)
+        if (isPlacedOnMap || GameManager.Instance.currentState != GameState.PlayerTurn)
+    {
+        return; 
+    }
         
         isDragging = true;
         originalParent = transform.parent;
+    
         
         // שמירת מיקום חזרה ליד
         positionBeforeHover = transform.localPosition;
@@ -107,43 +112,23 @@ public class CardDisplay : MonoBehaviour,
     public void OnEndDrag(PointerEventData eventData)
     {
         isDragging = false;
-        
         // בדיקת מיקום ב-Tilemap
         Vector3 checkPos = transform.position;
         checkPos.z = 0; // חשוב לאיפוס עומק
         Vector3Int cellPos = targetTilemap.WorldToCell(checkPos);
+        
 
-        if (targetTilemap.HasTile(cellPos))
+        if (targetTilemap.HasTile(cellPos) && !GameManager.Instance.IsCellOccupied(new Vector2Int(cellPos.x, cellPos.y)))
         {
-            // הצלחה! הקלף נדבק למשושה
-            SnapToGrid(cellPos);
+            OnCardPlacedOnBoard?.Invoke(data, new Vector2Int(cellPos.x, cellPos.y));
         }
         else
         {
-            // כישלון - חזרה ליד
             ReturnToHand();
         }
     }
 
-    private void SnapToGrid(Vector3Int cellPos)
-    {
-        isPlacedOnMap = true;
-        
-        // מיקום מרכז המשושה
-        Vector3 tileWorldPos = targetTilemap.GetCellCenterWorld(cellPos);
-        tileWorldPos.z = -0.01f; // שיהיה טיפה מעל המפה
-        transform.position = tileWorldPos;
-
-        // שינוי הורה ל-Tilemap (אופציונלי) כדי שיזוז איתו
-        transform.SetParent(targetTilemap.transform);
-
-        // שינוי ויזואלי - כאן אתה קובע את הגודל הסופי על המשושה
-        transform.localScale = new Vector3(0.15f, 0.15f, 1f); 
-        sr.sortingOrder = originalSortingOrder; // מחזירים לשכבה המקורית
-        
-        Debug.Log("נצמד למשושה: " + cellPos);
-    }
-
+    
     private void ReturnToHand()
     {
         transform.SetParent(originalParent);
@@ -154,5 +139,13 @@ public class CardDisplay : MonoBehaviour,
             Hand hand = originalParent.GetComponent<Hand>();
             if (hand != null) hand.UpdateLayout();
         }
+    }
+
+    public void SetAsPlaced()
+    {
+        isPlacedOnMap = true;
+        transform.localScale = new Vector3(0.5f, 0.5f, 1f); 
+        if (targetTilemap != null) transform.SetParent(targetTilemap.transform);
+        //GetComponent<SpriteRenderer>().color = new Color(1f, 0.8f, 0.8f); 
     }
 }
