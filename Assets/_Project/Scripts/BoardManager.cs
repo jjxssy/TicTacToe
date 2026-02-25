@@ -27,6 +27,10 @@ public class BoardManager : MonoBehaviour
         }
         return emptyCells;
     }
+    public bool IsCellOccupied(Vector2Int cell)
+    {
+        return BoardManager.Instance.GetCardAt(cell) != null;
+    }
 
     private Vector2Int[] directions = new Vector2Int[]
     {
@@ -35,22 +39,6 @@ public class BoardManager : MonoBehaviour
         new Vector2Int(-1, 1)   
     };
 
-    public void PlaceCard(Vector3 worldPos, CardData cardData)
-    {
-        Vector3Int cell3d = tilemap.WorldToCell(worldPos);
-        Vector2Int cell = new Vector2Int(cell3d.x, cell3d.y);
-
-        if (board.ContainsKey(cell))
-        {
-            Debug.Log("attempted to place on occupied cell: " + cell);
-            return;
-        }
-
-        board[cell] = cardData; 
-        Debug.Log($"הונח קלף {cardData.cardName} בתא {cell}");
-
-        CheckWholeBoard();
-    }
 
     void CheckWholeBoard()
     {
@@ -83,4 +71,5 @@ public class BoardManager : MonoBehaviour
         if (board.ContainsKey(cell)) return board[cell];
         return null;
     }
+        
 }

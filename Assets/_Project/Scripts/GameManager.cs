@@ -90,7 +90,8 @@ public class GameManager : MonoBehaviour
         display.LoadCard(data);
         display.SetAsPlaced(); 
     }
-    
+
+
 
 
 
