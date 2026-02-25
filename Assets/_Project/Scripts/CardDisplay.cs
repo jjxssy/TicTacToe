@@ -45,7 +45,7 @@ public class CardDisplay : MonoBehaviour,
         if (data != null) LoadCard(data);
         if (targetTilemap == null)
         {
-            targetTilemap = GameObject.FindObjectOfType<Tilemap>();
+            targetTilemap = UnityEngine.Object.FindFirstObjectByType<Tilemap>();
         }
     }
     public static event Action<CardData, Vector2Int> OnCardPlacedOnBoard; 
