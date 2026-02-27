@@ -49,6 +49,7 @@ public class GameManager : MonoBehaviour
         if (currentState == GameState.CPUTurn)
         {
             StartCoroutine(CPUTurnRoutine());
+            
         }
     }
 
@@ -75,8 +76,6 @@ public class GameManager : MonoBehaviour
             
         }
         yield return new WaitForSeconds(0.5f);
-        SetState(GameState.PlayerTurn);
-        
     }
 
     public void SpawnCardOnBoard(CardData data, Vector2Int cell)
@@ -89,6 +88,15 @@ public class GameManager : MonoBehaviour
         
         display.LoadCard(data);
         display.SetAsPlaced(); 
+        if (currentState == GameState.PlayerTurn)
+        {
+            SetState(GameState.CPUTurn);
+        }
+        else if (currentState == GameState.CPUTurn)
+        {
+            SetState(GameState.PlayerTurn);
+        }
+
     }
 
     internal bool IsCellOccupied(Vector2Int vector2Int)

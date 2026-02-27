@@ -121,6 +121,7 @@ public class CardDisplay : MonoBehaviour,
         if (targetTilemap.HasTile(cellPos) && !GameManager.Instance.IsCellOccupied(new Vector2Int(cellPos.x, cellPos.y)))
         {
             OnCardPlacedOnBoard?.Invoke(data, new Vector2Int(cellPos.x, cellPos.y));
+            Destroy(gameObject); // השמדת הקלף ביד לאחר הנחתו על הלוח
         }
         else
         {
