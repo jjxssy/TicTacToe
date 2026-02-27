@@ -57,9 +57,13 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("GameManager: Received draw event. Spawning card...");
         GameObject newCard = Instantiate(cardPrefab, handTransform);
-        newCard.GetComponent<CardDisplay>().LoadCard(data);
-    }
+        CardDisplay display = newCard.GetComponent<CardDisplay>();
+        display.LoadCard(data);
+        display.isPlayerCard = true;
+        
 
+
+    }
     IEnumerator CPUTurnRoutine()
     {
         
@@ -77,7 +81,6 @@ public class GameManager : MonoBehaviour
         }
         yield return new WaitForSeconds(0.5f);
     }
-
     public void SpawnCardOnBoard(CardData data, Vector2Int cell)
     {
         Vector3 spawnPos = BoardManager.Instance.tilemap.GetCellCenterWorld(new Vector3Int(cell.x, cell.y, 0));
@@ -91,10 +94,13 @@ public class GameManager : MonoBehaviour
         if (currentState == GameState.PlayerTurn)
         {
             SetState(GameState.CPUTurn);
+            display.isPlayerCard = true;
         }
         else if (currentState == GameState.CPUTurn)
         {
             SetState(GameState.PlayerTurn);
+            display.sr.color = new Color(1f, 0.6f, 0.6f, 1f);
+            display.isPlayerCard = false;
         }
 
     }

@@ -15,7 +15,7 @@ public class CardDisplay : MonoBehaviour,
     [Header("Card Data")]
     public CardData data;
 
-    private SpriteRenderer sr;
+    public SpriteRenderer sr;
     private Transform originalParent;
     
     private Vector3 positionBeforeHover; 
@@ -31,6 +31,7 @@ public class CardDisplay : MonoBehaviour,
     public float hoverYOffset = 0.5f;
     public float hoverScale = 1.1f;
     public Tilemap targetTilemap; // וודא שזה משויך ב-Inspector
+    public bool isPlayerCard = true; 
 
     void Awake()
     {
@@ -161,7 +162,6 @@ public class CardDisplay : MonoBehaviour,
             if (hand != null) hand.UpdateLayout();
         }
     }
-
     public void SetAsPlaced()
     {
         isPlacedOnMap = true;
