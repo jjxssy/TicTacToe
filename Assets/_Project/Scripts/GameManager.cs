@@ -105,7 +105,6 @@ public class GameManager : MonoBehaviour
             return false;
 
         Vector3 cellCenter = BoardManager.Instance.tilemap.GetCellCenterWorld(new Vector3Int(vector2Int.x, vector2Int.y, 0));
-        // compare 2D positions to avoid Z differences; tolerance small to allow floating point
         const float tolerance = 0.1f;
         CardDisplay[] allCards = FindObjectsByType<CardDisplay>(FindObjectsSortMode.None);
         foreach (var card in allCards)

@@ -58,20 +58,38 @@ public class CardDisplay : MonoBehaviour,
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (isDragging || isPlacedOnMap) return;
+        if (isDragging) return;
+        if (isPlacedOnMap)
+        {
+            // הגדלה קטנה לקלפים על הלוח
+            transform.localScale = new Vector3(0.65f, 0.65f, 1f);
+            sr.sortingOrder = 100;
+            return;
+        }
+    
+        // התנהגות רגילה ביד
         positionBeforeHover = transform.localPosition;
         sr.color = new Color(glowPower, glowPower, glowPower, 1f);
         sr.sortingOrder = 100;
         transform.localScale = originalScale * hoverScale;
         transform.localPosition = positionBeforeHover + new Vector3(0, hoverYOffset, 0);
+
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (isDragging || isPlacedOnMap) return;
+        if (isDragging) return;
+    
+        if (isPlacedOnMap)
+        {
+            // חזרה לגודל המונח
+            transform.localScale = new Vector3(0.5f, 0.5f, 1f);
+            sr.sortingOrder = originalSortingOrder;
+            return;
+
+        }
         ResetVisual();
     }
-
     private void ResetVisual()
     {
         sr.color = originalColor;
@@ -82,7 +100,7 @@ public class CardDisplay : MonoBehaviour,
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if (isPlacedOnMap) return; // לא גוררים קלף שכבר הונח (אלא אם תרצה אחרת)
+        if (isPlacedOnMap) return; 
         if (isPlacedOnMap || GameManager.Instance.currentState != GameState.PlayerTurn)
     {
         return; 
@@ -104,6 +122,7 @@ public class CardDisplay : MonoBehaviour,
 
     public void OnDrag(PointerEventData eventData)
     {
+        if (isPlacedOnMap) return;
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(eventData.position);
         mouseWorldPos.z = 0f; 
         transform.position = mouseWorldPos;
@@ -111,6 +130,7 @@ public class CardDisplay : MonoBehaviour,
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        if (isPlacedOnMap) return;
         isDragging = false;
         // בדיקת מיקום ב-Tilemap
         Vector3 checkPos = transform.position;
@@ -146,7 +166,9 @@ public class CardDisplay : MonoBehaviour,
     {
         isPlacedOnMap = true;
         transform.localScale = new Vector3(0.5f, 0.5f, 1f); 
-        if (targetTilemap != null) transform.SetParent(targetTilemap.transform);
-        //GetComponent<SpriteRenderer>().color = new Color(1f, 0.8f, 0.8f); 
+        if (targetTilemap != null)
+        {
+            transform.SetParent(targetTilemap.transform);
+        }
     }
 }
