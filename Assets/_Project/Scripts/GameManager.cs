@@ -88,6 +88,7 @@ public class GameManager : MonoBehaviour
 
         GameObject newCard = Instantiate(cardPrefab, spawnPos, Quaternion.identity);
         CardDisplay display = newCard.GetComponent<CardDisplay>();
+        bool isPlayer = (currentState == GameState.PlayerTurn);
         
         display.LoadCard(data);
         display.SetAsPlaced(); 
@@ -95,12 +96,14 @@ public class GameManager : MonoBehaviour
         {
             SetState(GameState.CPUTurn);
             display.isPlayerCard = true;
+            BoardManager.Instance.RegisterCard(cell, data, isPlayer);
         }
         else if (currentState == GameState.CPUTurn)
         {
             SetState(GameState.PlayerTurn);
             display.sr.color = new Color(1f, 0.6f, 0.6f, 1f);
             display.isPlayerCard = false;
+            BoardManager.Instance.RegisterCard(cell, data, isPlayer);
         }
 
     }
