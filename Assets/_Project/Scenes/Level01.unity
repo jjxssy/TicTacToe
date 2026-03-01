@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 54229936}
   - component: {fileID: 54229935}
   m_Layer: 5
-  m_Name: Image
+  m_Name: frame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -412,7 +412,7 @@ GameObject:
   - component: {fileID: 394125619}
   - component: {fileID: 394125618}
   m_Layer: 5
-  m_Name: Image
+  m_Name: frame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -505,6 +505,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BoardManager
   tilemap: {fileID: 1497993145}
+  playerHealth: {fileID: 1498298107}
+  enemyHealth: {fileID: 2025295232}
 --- !u!4 &487913139
 Transform:
   m_ObjectHideFlags: 0
@@ -708,7 +710,7 @@ GameObject:
   - component: {fileID: 750681799}
   - component: {fileID: 750681798}
   m_Layer: 5
-  m_Name: Image
+  m_Name: HpBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1746,7 +1748,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1498298106}
-  - component: {fileID: 1498298108}
   - component: {fileID: 1498298107}
   m_Layer: 5
   m_Name: HpBarPlayer
@@ -1791,21 +1792,6 @@ MonoBehaviour:
   maxHealth: 10
   currentHealth: 10
   healthBarFill: {fileID: 1880636567}
---- !u!114 &1498298108
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1498298105}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: feb476bcdf203914fb0964d736edf2c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
-  maxHealth: 10
-  currentHealth: 0
-  healthBarFill: {fileID: 0}
 --- !u!1 &1817988463
 GameObject:
   m_ObjectHideFlags: 0
@@ -1911,7 +1897,7 @@ GameObject:
   - component: {fileID: 1880636568}
   - component: {fileID: 1880636567}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Hpbar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1983,7 +1969,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2025295231}
-  - component: {fileID: 2025295233}
   - component: {fileID: 2025295232}
   m_Layer: 5
   m_Name: HpBarEnemy
@@ -2028,32 +2013,17 @@ MonoBehaviour:
   maxHealth: 10
   currentHealth: 10
   healthBarFill: {fileID: 750681798}
---- !u!114 &2025295233
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2025295230}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: feb476bcdf203914fb0964d736edf2c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
-  maxHealth: 10
-  currentHealth: 0
-  healthBarFill: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 801259359}
   - {fileID: 655587560}
+  - {fileID: 487913139}
+  - {fileID: 1132680942}
   - {fileID: 1253622293}
   - {fileID: 140631101}
-  - {fileID: 1132680942}
   - {fileID: 1835615274}
   - {fileID: 46230674}
   - {fileID: 1817988465}
   - {fileID: 1348805426}
-  - {fileID: 487913139}
