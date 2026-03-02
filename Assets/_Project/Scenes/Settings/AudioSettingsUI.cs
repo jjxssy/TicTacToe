@@ -15,6 +15,11 @@ public class AudioSettingsUI : MonoBehaviour
 
     private void OnEnable()
     {
+        RefreshFromDraft();
+    }
+
+    public void RefreshFromDraft()
+    {
         var s = SettingsManager.Instance;
 
         masterSlider.SetValueWithoutNotify(s.DraftMaster * 100f);
@@ -25,12 +30,12 @@ public class AudioSettingsUI : MonoBehaviour
 
         bool muted = s.DraftMute;
         masterSlider.interactable = !muted;
-        musicSlider.interactable = !muted;
-        sfxSlider.interactable = !muted;
+        musicSlider.interactable  = !muted;
+        sfxSlider.interactable    = !muted;
 
-        UpdateLabel(masterSlider, masterPercent);
-        UpdateLabel(musicSlider, musicPercent);
-        UpdateLabel(sfxSlider, sfxPercent);
+        masterPercent.text = Mathf.RoundToInt(masterSlider.value) + "%";
+        musicPercent.text  = Mathf.RoundToInt(musicSlider.value) + "%";
+        sfxPercent.text    = Mathf.RoundToInt(sfxSlider.value) + "%";
     }
 
     public void OnMasterChanged(float v)
@@ -51,37 +56,18 @@ public class AudioSettingsUI : MonoBehaviour
         sfxPercent.text = Mathf.RoundToInt(v) + "%";
     }
 
-    private void UpdateLabel(Slider slider, TMP_Text label)
-    {
-        label.text = Mathf.RoundToInt(slider.value) + "%";
-    }
-
     public void OnMuteChanged(bool on)
     {
         SettingsManager.Instance.SetDraftMute(on);
 
         masterSlider.interactable = !on;
-        musicSlider.interactable = !on;
-        sfxSlider.interactable = !on;
+        musicSlider.interactable  = !on;
+        sfxSlider.interactable    = !on;
     }
 
-    public void RefreshFromDraft()
+    public void ResetDefaults()
     {
-        var s = SettingsManager.Instance;
-
-        masterSlider.SetValueWithoutNotify(s.DraftMaster * 100f);
-        musicSlider.SetValueWithoutNotify(s.DraftMusic * 100f);
-        sfxSlider.SetValueWithoutNotify(s.DraftSfx * 100f);
-
-        muteToggle.SetIsOnWithoutNotify(s.DraftMute);
-
-        bool muted = s.DraftMute;
-        masterSlider.interactable = !muted;
-        musicSlider.interactable = !muted;
-        sfxSlider.interactable = !muted;
-
-        masterPercent.text = Mathf.RoundToInt(masterSlider.value) + "%";
-        musicPercent.text = Mathf.RoundToInt(musicSlider.value) + "%";
-        sfxPercent.text = Mathf.RoundToInt(sfxSlider.value) + "%";
+        SettingsManager.Instance.ResetDraftAudioToDefaults();
+        RefreshFromDraft();
     }
 }

@@ -32,19 +32,20 @@ public class VideoSettingsUI : MonoBehaviour
 
         resolutionText.text = s.GetDraftResolutionText();
 
-        HighlightFps(s.DraftFpsCap);
+        HighlightFps(s.DraftFpsCap, s.DraftVSync);
     }
 
     public void OnFullscreenChanged(bool on)
     {
         SettingsManager.Instance.SetDraftFullscreen(on);
-        resolutionText.text = SettingsManager.Instance.GetDraftResolutionText();
     }
 
     public void OnVSyncChanged(bool on)
-    {
-        SettingsManager.Instance.SetDraftVSync(on);
-    }
+{
+    SettingsManager.Instance.SetDraftVSync(on);
+
+    HighlightFps(SettingsManager.Instance.DraftFpsCap, on);
+}
 
     public void OnResolutionLeft()
     {
@@ -58,15 +59,44 @@ public class VideoSettingsUI : MonoBehaviour
         resolutionText.text = SettingsManager.Instance.GetDraftResolutionText();
     }
 
-    public void OnFps30()  { SettingsManager.Instance.SetDraftFpsCap(30);  HighlightFps(30); }
-    public void OnFps60()  { SettingsManager.Instance.SetDraftFpsCap(60);  HighlightFps(60); }
-    public void OnFps120() { SettingsManager.Instance.SetDraftFpsCap(120); HighlightFps(120); }
+    public void OnFps30()
+{
+    SettingsManager.Instance.SetDraftFpsCap(30);
+    HighlightFps(30, SettingsManager.Instance.DraftVSync);
+}
 
-    private void HighlightFps(int cap)
+public void OnFps60()
+{
+    SettingsManager.Instance.SetDraftFpsCap(60);
+    HighlightFps(60, SettingsManager.Instance.DraftVSync);
+}
+
+public void OnFps120()
+{
+    SettingsManager.Instance.SetDraftFpsCap(120);
+    HighlightFps(120, SettingsManager.Instance.DraftVSync);
+}
+
+    private void HighlightFps(int cap, bool vSyncOn)
+{
+    if (vSyncOn)
     {
-        // simple selection style: selected = non-interactable
-        fps30Button.interactable  = cap != 30;
-        fps60Button.interactable  = cap != 60;
-        fps120Button.interactable = cap != 120;
+        // When VSync is ON, FPS buttons are disabled
+        fps30Button.interactable = false;
+        fps60Button.interactable = false;
+        fps120Button.interactable = false;
+        return;
+    }
+
+    // VSync OFF → enable buttons
+    fps30Button.interactable  = cap != 30;
+    fps60Button.interactable  = cap != 60;
+    fps120Button.interactable = cap != 120;
+}
+
+    public void ResetDefaults()
+    {
+        SettingsManager.Instance.ResetDraftVideoToDefaults();
+        RefreshFromDraft();
     }
 }
