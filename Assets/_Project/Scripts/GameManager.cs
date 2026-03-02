@@ -3,11 +3,15 @@ using System.Collections; // חשוב בשביל IEnumerator
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public enum GameState { PlayerTurn, CPUTurn, Busy, GameOver }
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+    public Deck playerDeck;
+
+    public TurnTimer turnTimer;
 
     [Header("Setup")]
     public GameObject cardPrefab;
@@ -27,6 +31,16 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         SetState(GameState.PlayerTurn);
+        for (int i = 0; i < 5; i++)
+        {
+            if (playerDeck != null && playerDeck.cards.Count > 0)
+            {
+                int randomIndex = Random.Range(0, playerDeck.cards.Count);
+                CardData drawnCard = playerDeck.cards[randomIndex];
+                playerDeck.cards.RemoveAt(randomIndex);
+                HandleCardDrawn(drawnCard);
+            }
+        }
     }
 
     private void OnEnable()
@@ -46,20 +60,54 @@ public class GameManager : MonoBehaviour
         currentState = newState;
         Debug.Log("Current State: " + currentState);
 
+        if (currentState == GameState.PlayerTurn)
+        {
+            turnTimer?.StartTimer(); // מתחיל טיימר בתור שחקן
+        }
+        else
+        {
+            turnTimer?.StopTimer(); // עוצר בתור CPU
+        }
+
         if (currentState == GameState.CPUTurn)
         {
             StartCoroutine(CPUTurnRoutine());
-            
         }
+
     }
+    public void EndTurn()
+    {
+        if (currentState != GameState.PlayerTurn) return;
+
+        
+        if (playerDeck != null && playerDeck.cards.Count > 0)
+        {
+            int randomIndex = Random.Range(0, playerDeck.cards.Count);
+            CardData drawnCard = playerDeck.cards[randomIndex];
+            playerDeck.cards.RemoveAt(randomIndex);
+            HandleCardDrawn(drawnCard);
+        }
+        SetState(GameState.CPUTurn);
+    }
+
+ 
 
     private void HandleCardDrawn(CardData data)
     {
+
+        int cardsInHand = handTransform.childCount;
+
+        if (cardsInHand >= 8)
+        {
+            Debug.Log("היד מלאה! הקלף נהרס.");
+            return; 
+        }
         Debug.Log("GameManager: Received draw event. Spawning card...");
         GameObject newCard = Instantiate(cardPrefab, handTransform);
         CardDisplay display = newCard.GetComponent<CardDisplay>();
         display.LoadCard(data);
         display.isPlayerCard = true;
+
         
 
 
@@ -94,7 +142,6 @@ public class GameManager : MonoBehaviour
         display.SetAsPlaced(); 
         if (currentState == GameState.PlayerTurn)
         {
-            SetState(GameState.CPUTurn);
             display.isPlayerCard = true;
             BoardManager.Instance.RegisterCard(cell, data, isPlayer);
         }

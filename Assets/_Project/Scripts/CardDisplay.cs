@@ -100,30 +100,24 @@ public class CardDisplay : MonoBehaviour,
     }
 
     public void OnBeginDrag(PointerEventData eventData)
+{
+    if (isPlacedOnMap || GameManager.Instance.currentState != GameState.PlayerTurn)
     {
-        if (isPlacedOnMap) return; 
-        if (isPlacedOnMap || GameManager.Instance.currentState != GameState.PlayerTurn)
-    {
+        isDragging = false; // וודא שנשאר false
         return; 
     }
         
-        isDragging = true;
-        originalParent = transform.parent;
-    
-        
-        // שמירת מיקום חזרה ליד
-        positionBeforeHover = transform.localPosition;
-
-        
-        transform.SetParent(null); // ניתוק מהיד
-        transform.rotation = Quaternion.identity;
-        sr.sortingOrder = 200;
-        
-    }
+    isDragging = true;
+    originalParent = transform.parent;
+    positionBeforeHover = transform.localPosition;
+    transform.SetParent(null);
+    transform.rotation = Quaternion.identity;
+    sr.sortingOrder = 200;
+}
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (isPlacedOnMap) return;
+        if (!isDragging || isPlacedOnMap) return; // בודק isDragging במקום state
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(eventData.position);
         mouseWorldPos.z = 0f; 
         transform.position = mouseWorldPos;
@@ -131,24 +125,27 @@ public class CardDisplay : MonoBehaviour,
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (isPlacedOnMap) return;
+        if (!isDragging || isPlacedOnMap) return; // בודק isDragging במקום state
         isDragging = false;
-        // בדיקת מיקום ב-Tilemap
+
         Vector3 checkPos = transform.position;
-        checkPos.z = 0; // חשוב לאיפוס עומק
+        checkPos.z = 0;
         Vector3Int cellPos = targetTilemap.WorldToCell(checkPos);
-        
 
         if (targetTilemap.HasTile(cellPos) && !GameManager.Instance.IsCellOccupied(new Vector2Int(cellPos.x, cellPos.y)))
         {
             OnCardPlacedOnBoard?.Invoke(data, new Vector2Int(cellPos.x, cellPos.y));
-            Destroy(gameObject); // השמדת הקלף ביד לאחר הנחתו על הלוח
+            Destroy(gameObject);
         }
         else
         {
             ReturnToHand();
         }
     }
+
+
+
+ 
 
     
     private void ReturnToHand()
