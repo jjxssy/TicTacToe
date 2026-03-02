@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 676b32b793e8b154092627e7bef58c62
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 191945
+  packageName: 'Tiles and Hexes: 2D Painted Terrain Samples'
+  packageVersion: 1.0
+  assetPath: Assets/Terrain Tile Hex Samples/readme_tile_hex_samples.txt
+  uploadId: 424161

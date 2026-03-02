@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: f7bf4c8ef33a97a42801942c6767d931
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 191945
+  packageName: 'Tiles and Hexes: 2D Painted Terrain Samples'
+  packageVersion: 1.0
+  assetPath: Assets/Terrain Tile Hex Samples/Example Scene/Example Hexes/hexUnderOcean00.asset
+  uploadId: 424161
