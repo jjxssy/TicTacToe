@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 946a2f09edec3034fbc62de22882abc1
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 191945
+  packageName: 'Tiles and Hexes: 2D Painted Terrain Samples'
+  packageVersion: 1.0
+  assetPath: Assets/Terrain Tile Hex Samples/Example Scene/Example Hexes/hexOceanCalm00.asset
+  uploadId: 424161

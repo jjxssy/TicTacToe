@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 7a3056353b4a8234485178d8de59e96b
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 191945
+  packageName: 'Tiles and Hexes: 2D Painted Terrain Samples'
+  packageVersion: 1.0
+  assetPath: Assets/Terrain Tile Hex Samples/Example Scene/Example Tiles/below_dirt00.asset
+  uploadId: 424161

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Slice
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   cardName: Slice
-  damage: 10
+  damage: 1
   money: 0
   type: 0
   glowColor: {r: 1, g: 1, b: 1, a: 1}

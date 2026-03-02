@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: b62249a4f94a80b4f8b4294c2e096f36
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 191945
+  packageName: 'Tiles and Hexes: 2D Painted Terrain Samples'
+  packageVersion: 1.0
+  assetPath: Assets/Terrain Tile Hex Samples/Example Scene/Example Hexes/hexDesertYellowCactiForest00.asset
+  uploadId: 424161
