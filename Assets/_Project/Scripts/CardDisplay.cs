@@ -62,12 +62,10 @@ public class CardDisplay : MonoBehaviour,
         if (isDragging) return;
         if (isPlacedOnMap)
         {
-            // הגדלה קטנה לקלפים על הלוח
             transform.localScale = new Vector3(0.65f, 0.65f, 1f);
             sr.sortingOrder = 100;
             return;
         }
-    
         // התנהגות רגילה ביד
         positionBeforeHover = transform.localPosition;
         sr.color = new Color(glowPower, glowPower, glowPower, 1f);
@@ -125,8 +123,22 @@ public class CardDisplay : MonoBehaviour,
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        Debug.Log($"OnEndDrag called! isDragging: {isDragging}, isPlacedOnMap: {isPlacedOnMap}");
         if (!isDragging || isPlacedOnMap) return; // בודק isDragging במקום state
         isDragging = false;
+
+        Collider2D hit = Physics2D.OverlapPoint(new Vector2(transform.position.x, transform.position.y));
+        Debug.Log($"Hit: {hit}, Position: {transform.position}");
+        if (hit != null) Debug.Log($"Tag: {hit.tag}");
+        if (hit != null && hit.CompareTag("SpellZone"))
+        {
+            if (data != null && data.type == CardData.CardType.MajorArcana)
+            {
+                //SpellEffectManager.Instance.TriggerSpellCard(data);
+                Destroy(gameObject);
+                return;
+            }
+        }
 
         Vector3 checkPos = transform.position;
         checkPos.z = 0;

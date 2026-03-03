@@ -9,6 +9,8 @@ public class CardData : ScriptableObject
     public int money;
     public CardType type;
 
+    public ShitType shitType;
+
     public Color glowColor = Color.white;
 
 
@@ -20,6 +22,11 @@ public class CardData : ScriptableObject
     public enum CardType
     {
         Swords, Cups, Wands, Pentacles, MajorArcana, Basic
+    }
+
+    public enum ShitType
+    {
+        spell ,unit
     }
 
     public enum EffectType

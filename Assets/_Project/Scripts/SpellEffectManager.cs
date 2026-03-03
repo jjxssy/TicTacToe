@@ -1,16 +1,18 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class Efact : MonoBehaviour
+public class Efact : MonoBehaviour , IDropHandler
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+
+    public void OnDrop(PointerEventData eventData)
     {
-        
+        Debug.Log("Card dropped on effect area!");
+        CardDisplay card = eventData.pointerDrag.GetComponent<CardDisplay>();
+        if (card != null)
+        {
+            return;
+        }
+        Destroy(card.gameObject);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

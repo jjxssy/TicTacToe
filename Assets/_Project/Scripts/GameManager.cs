@@ -77,9 +77,7 @@ public class GameManager : MonoBehaviour
     }
     public void EndTurn()
     {
-        if (currentState != GameState.PlayerTurn) return;
-
-        
+        if (currentState != GameState.PlayerTurn) return; 
         if (playerDeck != null && playerDeck.cards.Count > 0)
         {
             int randomIndex = Random.Range(0, playerDeck.cards.Count);
