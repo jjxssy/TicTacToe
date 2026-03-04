@@ -126,15 +126,14 @@ public class CardDisplay : MonoBehaviour,
         Debug.Log($"OnEndDrag called! isDragging: {isDragging}, isPlacedOnMap: {isPlacedOnMap}");
         if (!isDragging || isPlacedOnMap) return; // בודק isDragging במקום state
         isDragging = false;
+        int spellLayer = LayerMask.GetMask("SpellZone");
+        Collider2D hit = Physics2D.OverlapPoint(new Vector2(transform.position.x, transform.position.y), spellLayer);
 
-        Collider2D hit = Physics2D.OverlapPoint(new Vector2(transform.position.x, transform.position.y));
-        Debug.Log($"Hit: {hit}, Position: {transform.position}");
-        if (hit != null) Debug.Log($"Tag: {hit.tag}");
-        if (hit != null && hit.CompareTag("SpellZone"))
+        if (hit != null)
         {
-            if (data != null && data.type == CardData.CardType.MajorArcana)
+            if (data != null && data.useType == CardData.UseType.spell)
             {
-                //SpellEffectManager.Instance.TriggerSpellCard(data);
+                //debug.Log("Placed on Spell Zone! Triggering spell effect...");
                 Destroy(gameObject);
                 return;
             }

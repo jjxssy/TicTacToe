@@ -9,7 +9,7 @@ public class CardData : ScriptableObject
     public int money;
     public CardType type;
 
-    public ShitType shitType;
+    public UseType useType;
 
     public Color glowColor = Color.white;
 
@@ -24,7 +24,7 @@ public class CardData : ScriptableObject
         Swords, Cups, Wands, Pentacles, MajorArcana, Basic
     }
 
-    public enum ShitType
+    public enum UseType
     {
         spell ,unit
     }

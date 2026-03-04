@@ -16,7 +16,7 @@ MonoBehaviour:
   damage: 1
   money: 0
   type: 0
-  shitType: 1
+  useType: 1
   glowColor: {r: 1, g: 1, b: 1, a: 1}
   powerUps: 
   powerDowns: 
