@@ -145,7 +145,7 @@ public class CardDisplay : MonoBehaviour,
         checkPos.z = 0;
         Vector3Int cellPos = targetTilemap.WorldToCell(checkPos);
 
-        if (targetTilemap.HasTile(cellPos) && !GameManager.Instance.IsCellOccupied(new Vector2Int(cellPos.x, cellPos.y)))
+        if (targetTilemap.HasTile(cellPos) && !GameManager.Instance.IsCellOccupied(new Vector2Int(cellPos.x, cellPos.y)) && data != null && data.useType == CardData.UseType.unit)
         {
             OnCardPlacedOnBoard?.Invoke(data, new Vector2Int(cellPos.x, cellPos.y));
             Destroy(gameObject);
