@@ -11,11 +11,14 @@ public class CardData : ScriptableObject
 
     public UseType useType;
 
+    
+
     public Color glowColor = Color.white;
 
 
     public List<EffectType> powerUps;
     public List<EffectType> powerDowns;
+    public List<OnEnter> onEnter;
 
     public Sprite artwork;
 
@@ -26,11 +29,17 @@ public class CardData : ScriptableObject
 
     public enum UseType
     {
-        spell ,unit
+        spell ,unit,Trap
     }
 
     public enum EffectType
     {
-        Confusion, DoubleDamage, UpMore, DownMore 
+        Confusion, DoubleDamage, UpMore, DownMore, Heal, Silence , kill, DrawCard , Freeze ,
+         AttackConfusion , MoveUnit , stealth , RemoveBuffs , RemoveDebuffs , Revel , shield , Debuff,
+         CounterAttack
+    }
+    public enum OnEnter
+    {
+        None, DamageAllEnemies, HealAllAllies, BuffNextUnit, DebuffNextEnemy
     }
 }

@@ -44,13 +44,13 @@ public class Efact : MonoBehaviour
 
     public void DoubleDamageEffect()
     {
-        // כאן תוכל להוסיף את הלוגיקה להכפלת הנזק של הקלף
+        
         Debug.Log($"Double damage effect triggered for card");
     }
 
     public void ConfusionEffect()
     {
-        // כאן תוכל להוסיף את הלוגיקה לבלבול של הקלף
+        
         Debug.Log($"Confusion effect triggered for card");
     }
 

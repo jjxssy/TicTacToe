@@ -20,4 +20,5 @@ MonoBehaviour:
   glowColor: {r: 1, g: 1, b: 1, a: 1}
   powerUps: 01000000
   powerDowns: 00000000
+  onEnter: 
   artwork: {fileID: 6007601707822140558, guid: e5ed1ea84690aee47b25c5becdec2282, type: 3}
