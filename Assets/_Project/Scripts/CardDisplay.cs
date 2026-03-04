@@ -134,6 +134,8 @@ public class CardDisplay : MonoBehaviour,
             if (data != null && data.useType == CardData.UseType.spell)
             {
                 //debug.Log("Placed on Spell Zone! Triggering spell effect...");
+                bool reversed = Efact.RollSpellDirection();
+                Efact.Instance.TriggerSpellCard(data, reversed);
                 Destroy(gameObject);
                 return;
             }
