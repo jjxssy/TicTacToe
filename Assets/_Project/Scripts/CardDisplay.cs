@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
 using System;
+using System.Collections;
 
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(BoxCollider2D))]
@@ -22,6 +23,7 @@ public class CardDisplay : MonoBehaviour,
     private Vector3 originalScale;
     private Color originalColor;
     private int originalSortingOrder;
+    
 
     private bool isDragging = false;
     private bool isPlacedOnMap = false; // האם הקלף כבר הונח?
@@ -56,10 +58,15 @@ public class CardDisplay : MonoBehaviour,
         data = newData;
         if (data != null && data.artwork != null) sr.sprite = data.artwork;
     }
+    private Coroutine tooltipCoroutine;
 
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (isDragging) return;
+        if (tooltipCoroutine != null) StopCoroutine(tooltipCoroutine);
+        
+        // הפעלת הטיימר של חצי שנייה
+        tooltipCoroutine = StartCoroutine(ShowTooltipAfterDelay(0.5f));
         if (isPlacedOnMap)
         {
             transform.localScale = new Vector3(0.65f, 0.65f, 1f);
@@ -78,6 +85,18 @@ public class CardDisplay : MonoBehaviour,
     public void OnPointerExit(PointerEventData eventData)
     {
         if (isDragging) return;
+
+        if (tooltipCoroutine != null) 
+        {
+            StopCoroutine(tooltipCoroutine);
+            tooltipCoroutine = null; 
+        }
+
+        if (TooltipManager.Instance != null)
+        {
+            TooltipManager.Instance.HideTooltip();
+        }
+
     
         if (isPlacedOnMap)
         {
@@ -104,6 +123,10 @@ public class CardDisplay : MonoBehaviour,
         isDragging = false; // וודא שנשאר false
         return; 
     }
+    if (TooltipManager.Instance != null)
+    {
+        TooltipManager.Instance.HideTooltip();
+    }
         
     isDragging = true;
     originalParent = transform.parent;
@@ -123,19 +146,17 @@ public class CardDisplay : MonoBehaviour,
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        Debug.Log($"OnEndDrag called! isDragging: {isDragging}, isPlacedOnMap: {isPlacedOnMap}");
-        if (!isDragging || isPlacedOnMap) return; // בודק isDragging במקום state
+        if (!isDragging || isPlacedOnMap) return; 
         isDragging = false;
         int spellLayer = LayerMask.GetMask("SpellZone");
         Collider2D hit = Physics2D.OverlapPoint(new Vector2(transform.position.x, transform.position.y), spellLayer);
 
         if (hit != null)
         {
-            if (data != null && data.useType == CardData.UseType.spell)
+            if (data != null && data.useType == CardData.UseType.Spell)
             {
-                //debug.Log("Placed on Spell Zone! Triggering spell effect...");
-                bool reversed = Efact.RollSpellDirection();
-                Efact.Instance.TriggerSpellCard(data, reversed);
+                Debug.Log("Placed on Spell Zone! Triggering spell effect...");
+                GameManager.Instance.ApplyCardEffects(data, gameObject);
                 Destroy(gameObject);
                 return;
             }
@@ -145,7 +166,7 @@ public class CardDisplay : MonoBehaviour,
         checkPos.z = 0;
         Vector3Int cellPos = targetTilemap.WorldToCell(checkPos);
 
-        if (targetTilemap.HasTile(cellPos) && !GameManager.Instance.IsCellOccupied(new Vector2Int(cellPos.x, cellPos.y)) && data != null && data.useType == CardData.UseType.unit)
+        if (targetTilemap.HasTile(cellPos) && !GameManager.Instance.IsCellOccupied(new Vector2Int(cellPos.x, cellPos.y)) && data != null && data.useType == CardData.UseType.Unit)
         {
             OnCardPlacedOnBoard?.Invoke(data, new Vector2Int(cellPos.x, cellPos.y));
             Destroy(gameObject);
@@ -155,12 +176,6 @@ public class CardDisplay : MonoBehaviour,
             ReturnToHand();
         }
     }
-
-
-
- 
-
-    
     private void ReturnToHand()
     {
         transform.SetParent(originalParent);
@@ -181,4 +196,16 @@ public class CardDisplay : MonoBehaviour,
             transform.SetParent(targetTilemap.transform);
         }
     }
+
+    private IEnumerator ShowTooltipAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        
+        // בודק שוב שהתנאים מתקיימים אחרי חצי שניה
+        if (!isDragging && TooltipManager.Instance != null && data != null)
+        {
+            TooltipManager.Instance.ShowTooltip(data);
+        }
+    }
+
 }

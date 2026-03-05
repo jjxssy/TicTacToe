@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,14 +12,16 @@ public class CardData : ScriptableObject
 
     public UseType useType;
 
-    
+
 
     public Color glowColor = Color.white;
 
 
-    public List<EffectType> powerUps;
-    public List<EffectType> powerDowns;
-    public List<OnEnter> onEnter;
+ 
+    public List<CardEffect> powerUps = new List<CardEffect>();
+    public List<CardEffect> powerDowns = new List<CardEffect>();
+  
+    
 
     public Sprite artwork;
 
@@ -29,17 +32,26 @@ public class CardData : ScriptableObject
 
     public enum UseType
     {
-        spell ,unit,Trap
+        Spell, Unit, Trap
     }
-
+    public string GetTooltipText()
+    {
+        string text = "<b>Power Ups:</b>\n";
+        foreach(var e in powerUps) text += "- " + e.name + "\n";
+        
+        if(powerDowns.Count > 0)
+        {
+            text += "\n<b>Power Downs (Reversed):</b>\n";
+            foreach(var e in powerDowns) text += "- " + e.name + "\n";
+        }
+        return text;
+    }
+/*
     public enum EffectType
     {
-        Confusion, DoubleDamage, UpMore, DownMore, Heal, Silence , kill, DrawCard , Freeze ,
-         AttackConfusion , MoveUnit , stealth , RemoveBuffs , RemoveDebuffs , Revel , shield , Debuff,
-         CounterAttack
+        Confusion, DoubleDamage, UpMore, DownMore, Heal, Silence, Kill, DrawCard, Freeze,
+        AttackConfusion, MoveUnit, Stealth, RemoveBuffs, RemoveDebuffs, Revel, Shield, Debuff,
+        CounterAttack
     }
-    public enum OnEnter
-    {
-        None, DamageAllEnemies, HealAllAllies, BuffNextUnit, DebuffNextEnemy
-    }
+*/
 }

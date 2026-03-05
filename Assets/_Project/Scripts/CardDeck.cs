@@ -17,10 +17,7 @@ public class Deck : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         {
             CardData drawnData = cards[0];
             cards.RemoveAt(0);
-
-            // Trigger the event (The ?. ensures it doesn't crash if nothing is listening)
-            OnCardDrawn?.Invoke(drawnData);
-            
+            OnCardDrawn?.Invoke(drawnData); 
             Debug.Log($"Deck: Broadcasted draw for {drawnData.name}");
         }
     }

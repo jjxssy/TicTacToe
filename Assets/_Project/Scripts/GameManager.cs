@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
 
     public TurnTimer turnTimer;
 
+    [HideInInspector] public float damageMultiplier = 1f;
+
     [Header("Setup")]
     public GameObject cardPrefab;
     public Transform handTransform;
@@ -22,6 +24,9 @@ public class GameManager : MonoBehaviour
 
     [Header("CPU Settings")]
     public List<CardData> cpuDeck; 
+
+    [Header("Mechanics")]
+    public float reverseChanceBonus = 0f; 
 
     private void Awake()
     {
@@ -170,4 +175,53 @@ public class GameManager : MonoBehaviour
         }
         return false;
     }
+
+    public void ApplyCardEffects(CardData data, GameObject cardObject)
+    {
+    EffectContext context = new EffectContext();
+    context.Card = data;
+    bool canBeReversed = data.powerDowns != null && data.powerDowns.Count > 0;
+    bool isReversed = false;
+
+    if (canBeReversed)
+    {
+        isReversed = UnityEngine.Random.Range(0f, 1f) <= 0.5f;
+        // הסיכוי הבסיסי הוא 0.5 (50%), ונוסיף לו את הבונוס מהבלבול
+        float finalReverseThreshold = 0.5f + reverseChanceBonus;
+        finalReverseThreshold = Mathf.Clamp(finalReverseThreshold, 0f, 1f);
+
+        isReversed = UnityEngine.Random.Range(0f, 1f) <= finalReverseThreshold;
+
+        Debug.Log($"Card: {data.cardName} | Can be Reversed: {canBeReversed} | Reverse Chance: {finalReverseThreshold * 100}% | Is Reversed: {isReversed}");
+    }
+
+    context.IsReversed = isReversed;
+
+    if (isReversed)
+    {
+        cardObject.transform.rotation = Quaternion.Euler(0, 0, 180);
+        Debug.Log("reversed card! Applying powerDowns.");
+        
+    }
+        // דוגמה ללוגיקה בתוך ApplyCardEffects
+    if (!isReversed)
+    {
+        foreach (var effect in data.powerUps)
+        {
+            if (effect != null) 
+            {
+                effect.Execute(context);
+                Debug.Log("Executing PowerUp: " + effect.name); // בדיקה ב-Console
+            }
+        }
+    }
+    else
+    {
+        foreach (var effect in data.powerDowns)
+        {
+            if (effect != null) effect.Execute(context);
+            Debug.Log("applied powerDown effect.");
+        }
+    }
+}
 }

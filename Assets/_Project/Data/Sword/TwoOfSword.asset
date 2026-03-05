@@ -18,7 +18,7 @@ MonoBehaviour:
   type: 0
   useType: 1
   glowColor: {r: 1, g: 1, b: 1, a: 1}
-  powerUps: 
+  powerUps: 05000000
   powerDowns: 
-  onEnter: 
+  onEnter: 00000000
   artwork: {fileID: 0}
