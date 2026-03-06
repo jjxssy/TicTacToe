@@ -20,6 +20,7 @@ public class CardData : ScriptableObject
  
     public List<CardEffect> powerUps = new List<CardEffect>();
     public List<CardEffect> powerDowns = new List<CardEffect>();
+    public int manaCost;
   
     
 

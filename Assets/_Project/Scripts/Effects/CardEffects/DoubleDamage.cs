@@ -1,6 +1,5 @@
 using UnityEngine;
 
-// השורה הזו מאפשרת לך ליצור את האפקט כקובץ בתיקיית ה-Assets
 [CreateAssetMenu(fileName = "NewDoubleDamage", menuName = "Cards/Effects/Combat/Double Damage")]
 public class DoubleDamageEffect : CardEffect
 {

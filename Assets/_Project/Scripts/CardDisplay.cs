@@ -127,6 +127,12 @@ public class CardDisplay : MonoBehaviour,
     {
         TooltipManager.Instance.HideTooltip();
     }
+
+    if (GameManager.Instance.currentMana < data.manaCost)
+    {
+        Debug.Log("No enough mana to play this card!");
+        return; 
+    }
         
     isDragging = true;
     originalParent = transform.parent;
@@ -157,11 +163,12 @@ public class CardDisplay : MonoBehaviour,
             {
                 Debug.Log("Placed on Spell Zone! Triggering spell effect...");
                 GameManager.Instance.ApplyCardEffects(data, gameObject);
+                GameManager.Instance.SpendMana(data.manaCost);
                 Destroy(gameObject);
                 return;
             }
         }
-
+        
         Vector3 checkPos = transform.position;
         checkPos.z = 0;
         Vector3Int cellPos = targetTilemap.WorldToCell(checkPos);
@@ -169,6 +176,7 @@ public class CardDisplay : MonoBehaviour,
         if (targetTilemap.HasTile(cellPos) && !GameManager.Instance.IsCellOccupied(new Vector2Int(cellPos.x, cellPos.y)) && data != null && data.useType == CardData.UseType.Unit)
         {
             OnCardPlacedOnBoard?.Invoke(data, new Vector2Int(cellPos.x, cellPos.y));
+            GameManager.Instance.SpendMana(data.manaCost);
             Destroy(gameObject);
         }
         else

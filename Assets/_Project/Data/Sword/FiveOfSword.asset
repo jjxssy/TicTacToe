@@ -12,13 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d3702709f154f5439347b921bf5fc10, type: 3}
   m_Name: FiveOfSword
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  cardName: 
+  cardName: Five Of Swords
   damage: 0
   money: 0
   type: 0
   useType: 1
   glowColor: {r: 1, g: 1, b: 1, a: 1}
-  powerUps: 09000000
-  powerDowns: 
-  onEnter: 
+  powerUps: []
+  powerDowns: []
   artwork: {fileID: 0}

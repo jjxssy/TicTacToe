@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d3702709f154f5439347b921bf5fc10, type: 3}
   m_Name: AceOfSword
   m_EditorClassIdentifier: Assembly-CSharp::CardData
-  cardName: 
+  cardName: Ace Of Swords
   damage: 0
   money: 0
   type: 0
@@ -22,4 +22,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 82b3a85d0a1f8a34eba11a6fe5ccd008, type: 2}
   powerDowns:
   - {fileID: 11400000, guid: daec5d4d1fe6020468c7f3bba8db69b2, type: 2}
+  manaCost: 1
   artwork: {fileID: 6007601707822140558, guid: e5ed1ea84690aee47b25c5becdec2282, type: 3}

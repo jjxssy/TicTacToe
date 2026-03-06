@@ -2,6 +2,7 @@
 using System.Collections; // חשוב בשביל IEnumerator
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 
 public enum GameState { PlayerTurn, CPUTurn, Busy, GameOver }
@@ -12,6 +13,7 @@ public class GameManager : MonoBehaviour
     public Deck playerDeck;
 
     public TurnTimer turnTimer;
+    public bool isItPlayerTurn;
 
     [HideInInspector] public float damageMultiplier = 1f;
 
@@ -22,11 +24,22 @@ public class GameManager : MonoBehaviour
     [Header("Turn Management")]
     public GameState currentState;
 
+    [Header("UI References")]
+    public TextMeshProUGUI turnCountText;    
+    public TextMeshProUGUI turnIndicatorText;
+
     [Header("CPU Settings")]
     public List<CardData> cpuDeck; 
 
     [Header("Mechanics")]
     public float reverseChanceBonus = 0f; 
+
+    [Header("Mana Settings")]
+    public int currentMana = 3;
+    public const int MAX_MANA = 3;
+    [SerializeField] private TextMeshProUGUI manaText;
+
+    private int TurnCount = 0;
 
     private void Awake()
     {
@@ -63,20 +76,29 @@ public class GameManager : MonoBehaviour
     public void SetState(GameState newState)
     {
         currentState = newState;
-        Debug.Log("Current State: " + currentState);
+        //Debug.Log("Current State: " + currentState);
+        isItPlayerTurn = (currentState == GameState.PlayerTurn);
 
         if (currentState == GameState.PlayerTurn)
         {
-            turnTimer?.StartTimer(); // מתחיל טיימר בתור שחקן
+            turnTimer?.StartTimer();
+            Debug.Log("Player's turn started. Timer started.");
+            TurnCount++;
+            Debug.Log("Turn Count: " + TurnCount);
+            currentMana = MAX_MANA;
+            UpdateVisualUI();
+           
         }
         else
         {
             turnTimer?.StopTimer(); // עוצר בתור CPU
         }
+        UpdateVisualUI();
 
         if (currentState == GameState.CPUTurn)
         {
             StartCoroutine(CPUTurnRoutine());
+            Debug.Log("CPU's turn started. Executing CPU actions...");
         }
 
     }
@@ -92,9 +114,6 @@ public class GameManager : MonoBehaviour
         }
         SetState(GameState.CPUTurn);
     }
-
- 
-
     private void HandleCardDrawn(CardData data)
     {
 
@@ -110,10 +129,6 @@ public class GameManager : MonoBehaviour
         CardDisplay display = newCard.GetComponent<CardDisplay>();
         display.LoadCard(data);
         display.isPlayerCard = true;
-
-        
-
-
     }
     IEnumerator CPUTurnRoutine()
     {
@@ -223,5 +238,39 @@ public class GameManager : MonoBehaviour
             Debug.Log("applied powerDown effect.");
         }
     }
+    }
+
+    public bool CanAffordCard(int cost)
+    {
+        return currentMana >= cost;
+    }
+
+    public void SpendMana(int amount)
+    {
+        currentMana -= amount;
+        UpdateVisualUI();
+    }
+    private void UpdateVisualUI()
+    {
+        if (manaText != null) manaText.text = "Mana " + currentMana + "/3";
+
+        if (turnCountText != null)
+        {
+            turnCountText.text = $"Turn : {TurnCount}";
+        }
+        if (turnIndicatorText != null)
+        {
+            if (isItPlayerTurn)
+            {
+                turnIndicatorText.text = "Your Turn";
+                turnIndicatorText.color = Color.green;
+            }
+            else
+            {
+                turnIndicatorText.text = "Opponent's Turn";
+                turnIndicatorText.color = Color.red;
+            }
+        }
+    }
 }
-}
+
