@@ -12,7 +12,8 @@ public class SettingsTabsController : MonoBehaviour
     [Header("Tab UI Scripts (for refreshing UI after reset)")]
     [SerializeField] private AudioSettingsUI audioUI;
     [SerializeField] private VideoSettingsUI videoUI;
-    // later: ControlsSettingsUI controlsUI, GameplaySettingsUI gameplayUI, AccessibilitySettingsUI accessibilityUI
+    [SerializeField] private ControlsSettingsUI controlsUI;
+    // later: GameplaySettingsUI gameplayUI, AccessibilitySettingsUI accessibilityUI
 
     private GameObject[] panels;
     private int currentIndex = 0;
@@ -36,6 +37,7 @@ public class SettingsTabsController : MonoBehaviour
     // refresh the UI of the newly opened tab so it shows reverted values
     if (currentIndex == 0 && audioUI != null) audioUI.RefreshFromDraft();
     if (currentIndex == 1 && videoUI != null) videoUI.RefreshFromDraft();
+    if (currentIndex == 2 && controlsUI != null) controlsUI.RefreshFromDraft();
 }
 
     public void ShowAudio() => Show(0);
@@ -59,8 +61,8 @@ public class SettingsTabsController : MonoBehaviour
                 break;
 
             case 2: // Controls
-                // SettingsManager.Instance.ResetDraftControlsToDefaults();
-                // controlsUI.RefreshFromDraft();
+                SettingsManager.Instance.ResetDraftControlsToDefaults();
+                controlsUI.RefreshFromDraft();
                 break;
 
             case 3: // Gameplay
@@ -81,6 +83,7 @@ public class SettingsTabsController : MonoBehaviour
 
         if (audioUI != null) audioUI.RefreshFromDraft();
         if (videoUI != null) videoUI.RefreshFromDraft();
+        if (controlsUI != null) controlsUI.RefreshFromDraft();
         // later refresh other tabs too
     }
     

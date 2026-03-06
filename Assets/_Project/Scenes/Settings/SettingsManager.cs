@@ -49,6 +49,19 @@ public class SettingsManager : MonoBehaviour
     private const string KEY_FPSCAP     = "settings_fpscap";
 
     // =========================
+// CONTROLS
+// =========================
+[Header("Controls")]
+[SerializeField] private float mouseSensitivity = 1f;
+[SerializeField] private bool tooltips = true;
+
+private float draftMouseSensitivity;
+private bool draftTooltips;
+
+private const string KEY_MOUSE_SENS = "settings_mouse_sens";
+private const string KEY_TOOLTIPS = "settings_tooltips";
+
+    // =========================
     // LIFECYCLE
     // =========================
     private void Awake()
@@ -91,6 +104,9 @@ public class SettingsManager : MonoBehaviour
     public bool DraftVSync => draftVSync;
     public int DraftFpsCap => draftFpsCap;
 
+    public float DraftMouseSensitivity => draftMouseSensitivity;
+public bool DraftTooltips => draftTooltips;
+
     // =========================
     // DRAFT SETTERS (Preview)
     // =========================
@@ -116,6 +132,16 @@ public class SettingsManager : MonoBehaviour
         var r = availableResolutions[draftResolutionIndex];
         return $"{r.width}x{r.height}";
     }
+
+    public void SetDraftMouseSensitivity(float value)
+{
+    draftMouseSensitivity = Mathf.Clamp(value, 0.1f, 3f);
+}
+
+public void SetDraftTooltips(bool on)
+{
+    draftTooltips = on;
+}
 
     // =========================
     // APPLY (GENERAL)
@@ -151,6 +177,10 @@ public class SettingsManager : MonoBehaviour
         resolutionIndex = draftResolutionIndex;
         vSync = draftVSync;
         fpsCap = draftFpsCap;
+
+        // commit controls
+        mouseSensitivity = draftMouseSensitivity;
+tooltips = draftTooltips;
 
         SaveSaved();
         ApplySaved();
@@ -188,12 +218,18 @@ public class SettingsManager : MonoBehaviour
         ApplyDraftVideo();
     }
 
+    public void ResetDraftControlsToDefaults()
+{
+    draftMouseSensitivity = 1f;
+    draftTooltips = true;
+}
+
     // Optional helper if you ever want one big reset:
     public void ResetDraftAllToDefaults()
     {
         ResetDraftAudioToDefaults();
         ResetDraftVideoToDefaults();
-        // ResetDraftControlsToDefaults();
+        ResetDraftControlsToDefaults();
     // ResetDraftGameplayToDefaults();
     // ResetDraftAccessibilityToDefaults();
     }
@@ -214,6 +250,10 @@ public class SettingsManager : MonoBehaviour
         draftResolutionIndex = resolutionIndex;
         draftVSync = vSync;
         draftFpsCap = fpsCap;
+
+        // controls
+        draftMouseSensitivity = mouseSensitivity;
+draftTooltips = tooltips;
 
         ClampResolutionIndices();
     }
@@ -240,6 +280,9 @@ public class SettingsManager : MonoBehaviour
         PlayerPrefs.SetInt(KEY_VSYNC, vSync ? 1 : 0);
         PlayerPrefs.SetInt(KEY_FPSCAP, fpsCap);
 
+        PlayerPrefs.SetFloat(KEY_MOUSE_SENS, mouseSensitivity);
+PlayerPrefs.SetInt(KEY_TOOLTIPS, tooltips ? 1 : 0);
+
         PlayerPrefs.Save();
     }
 
@@ -259,6 +302,9 @@ public class SettingsManager : MonoBehaviour
 
         vSync  = PlayerPrefs.GetInt(KEY_VSYNC, 1) == 1;
         fpsCap = PlayerPrefs.GetInt(KEY_FPSCAP, 60);
+
+        mouseSensitivity = PlayerPrefs.GetFloat(KEY_MOUSE_SENS, 1f);
+tooltips = PlayerPrefs.GetInt(KEY_TOOLTIPS, 1) == 1;
     }
 
     // =========================
