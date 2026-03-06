@@ -492,7 +492,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 13f7a8c99b5027a48a52999be63c441a, type: 2}
   - {fileID: 11400000, guid: 8a35ff498e685a24fb4d0f825bb0d682, type: 2}
   - {fileID: 11400000, guid: 13f7a8c99b5027a48a52999be63c441a, type: 2}
-  - {fileID: 11400000, guid: 13f7a8c99b5027a48a52999be63c441a, type: 2}
+  - {fileID: 11400000, guid: fcf9e636570523b4d8caafbcc8ec8cce, type: 2}
   - {fileID: 11400000, guid: 13f7a8c99b5027a48a52999be63c441a, type: 2}
   - {fileID: 11400000, guid: 8a35ff498e685a24fb4d0f825bb0d682, type: 2}
   - {fileID: 11400000, guid: 8a35ff498e685a24fb4d0f825bb0d682, type: 2}
@@ -2222,6 +2222,7 @@ MonoBehaviour:
   reverseChanceBonus: 0
   currentMana: 3
   manaText: {fileID: 2128581155}
+  isSelectingTarget: 0
 --- !u!1 &1213936112
 GameObject:
   m_ObjectHideFlags: 0

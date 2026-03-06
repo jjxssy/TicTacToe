@@ -1,9 +1,10 @@
 
-using System.Collections; // חשוב בשביל IEnumerator
+using System.Collections; 
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-
+using System;
+using Random = UnityEngine.Random;
 
 public enum GameState { PlayerTurn, CPUTurn, Busy, GameOver }
 
@@ -40,6 +41,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI manaText;
 
     private int TurnCount = 0;
+
+    private Action<CardDisplay> pendingTargetAction;
+    public bool isSelectingTarget = false;
 
     private void Awake()
     {
@@ -134,6 +138,7 @@ public class GameManager : MonoBehaviour
     {
         
         yield return new WaitForSeconds(1.5f); 
+        //isPlayerCard = false;
 
         List<Vector2Int> possibleMoves = BoardManager.Instance.GetEmptyCells();
 
@@ -158,6 +163,7 @@ public class GameManager : MonoBehaviour
         
         display.LoadCard(data);
         display.SetAsPlaced(); 
+        ApplyCardEffects(data, newCard);
         if (currentState == GameState.PlayerTurn)
         {
             display.isPlayerCard = true;
@@ -197,6 +203,12 @@ public class GameManager : MonoBehaviour
     context.Card = data;
     bool canBeReversed = data.powerDowns != null && data.powerDowns.Count > 0;
     bool isReversed = false;
+    CardDisplay display = cardObject.GetComponent<CardDisplay>();
+    if (display != null && display.isSilenced)
+    {
+        Debug.Log("Card is silenced! Skipping all effects.");
+        return;
+    }
 
     if (canBeReversed)
     {
@@ -244,11 +256,24 @@ public class GameManager : MonoBehaviour
     {
         return currentMana >= cost;
     }
-
     public void SpendMana(int amount)
     {
         currentMana -= amount;
         UpdateVisualUI();
+    }
+    public void StartTargeting(Action<CardDisplay> actionToPerform)
+    {
+        isSelectingTarget = true;
+        pendingTargetAction = actionToPerform;
+        Debug.Log("Targeting mode: ON");
+    }
+    public void ResolveTargeting(CardDisplay target)
+    {
+        if (!isSelectingTarget || pendingTargetAction == null) return;
+        pendingTargetAction.Invoke(target);
+        isSelectingTarget = false;
+        pendingTargetAction = null;
+        SetState(GameState.PlayerTurn); 
     }
     private void UpdateVisualUI()
     {

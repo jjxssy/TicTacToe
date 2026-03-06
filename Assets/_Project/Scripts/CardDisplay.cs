@@ -11,7 +11,8 @@ public class CardDisplay : MonoBehaviour,
     IPointerExitHandler,
     IBeginDragHandler,
     IDragHandler,
-    IEndDragHandler
+    IEndDragHandler,
+    IPointerClickHandler
 {
     [Header("Card Data")]
     public CardData data;
@@ -23,6 +24,7 @@ public class CardDisplay : MonoBehaviour,
     private Vector3 originalScale;
     private Color originalColor;
     private int originalSortingOrder;
+    public bool isSilenced = false;
     
 
     private bool isDragging = false;
@@ -59,6 +61,16 @@ public class CardDisplay : MonoBehaviour,
         if (data != null && data.artwork != null) sr.sprite = data.artwork;
     }
     private Coroutine tooltipCoroutine;
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        Debug.Log("Card Clicked: " + data.cardName);
+        if (GameManager.Instance.isSelectingTarget)
+        {
+            Debug.Log("Targeting is active, sending to ResolveTargeting");
+            GameManager.Instance.ResolveTargeting(this);
+        }
+    }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
@@ -172,11 +184,12 @@ public class CardDisplay : MonoBehaviour,
         Vector3 checkPos = transform.position;
         checkPos.z = 0;
         Vector3Int cellPos = targetTilemap.WorldToCell(checkPos);
+        GameManager.Instance.SpendMana(data.manaCost);
 
         if (targetTilemap.HasTile(cellPos) && !GameManager.Instance.IsCellOccupied(new Vector2Int(cellPos.x, cellPos.y)) && data != null && data.useType == CardData.UseType.Unit)
         {
             OnCardPlacedOnBoard?.Invoke(data, new Vector2Int(cellPos.x, cellPos.y));
-            GameManager.Instance.SpendMana(data.manaCost);
+            
             Destroy(gameObject);
         }
         else
@@ -204,7 +217,12 @@ public class CardDisplay : MonoBehaviour,
             transform.SetParent(targetTilemap.transform);
         }
     }
-
+    public void ApplySilence()
+    {
+        isSilenced = true;
+        sr.color = new Color(0.3f, 0.3f, 0.3f, 1f); 
+        Debug.Log("Card Silenced!");
+    }
     private IEnumerator ShowTooltipAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
