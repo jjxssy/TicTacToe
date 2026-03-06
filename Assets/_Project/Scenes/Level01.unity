@@ -486,23 +486,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CardDeck
   cards:
-  - {fileID: 11400000, guid: 13f7a8c99b5027a48a52999be63c441a, type: 2}
-  - {fileID: 11400000, guid: 13f7a8c99b5027a48a52999be63c441a, type: 2}
+  - {fileID: 11400000, guid: fcf9e636570523b4d8caafbcc8ec8cce, type: 2}
+  - {fileID: 11400000, guid: fcf9e636570523b4d8caafbcc8ec8cce, type: 2}
   - {fileID: 11400000, guid: 8a35ff498e685a24fb4d0f825bb0d682, type: 2}
-  - {fileID: 11400000, guid: 13f7a8c99b5027a48a52999be63c441a, type: 2}
+  - {fileID: 11400000, guid: fcf9e636570523b4d8caafbcc8ec8cce, type: 2}
   - {fileID: 11400000, guid: 8a35ff498e685a24fb4d0f825bb0d682, type: 2}
   - {fileID: 11400000, guid: 13f7a8c99b5027a48a52999be63c441a, type: 2}
   - {fileID: 11400000, guid: fcf9e636570523b4d8caafbcc8ec8cce, type: 2}
   - {fileID: 11400000, guid: 13f7a8c99b5027a48a52999be63c441a, type: 2}
+  - {fileID: 11400000, guid: 4c81674b692328b45bf518378bf2bd90, type: 2}
   - {fileID: 11400000, guid: 8a35ff498e685a24fb4d0f825bb0d682, type: 2}
-  - {fileID: 11400000, guid: 8a35ff498e685a24fb4d0f825bb0d682, type: 2}
-  - {fileID: 11400000, guid: 8a35ff498e685a24fb4d0f825bb0d682, type: 2}
-  - {fileID: 11400000, guid: 8a35ff498e685a24fb4d0f825bb0d682, type: 2}
-  - {fileID: 11400000, guid: 8a35ff498e685a24fb4d0f825bb0d682, type: 2}
-  - {fileID: 11400000, guid: 8a35ff498e685a24fb4d0f825bb0d682, type: 2}
-  - {fileID: 11400000, guid: 8a35ff498e685a24fb4d0f825bb0d682, type: 2}
-  - {fileID: 11400000, guid: 8a35ff498e685a24fb4d0f825bb0d682, type: 2}
-  - {fileID: 11400000, guid: 8a35ff498e685a24fb4d0f825bb0d682, type: 2}
+  - {fileID: 11400000, guid: 4c81674b692328b45bf518378bf2bd90, type: 2}
+  - {fileID: 11400000, guid: 4c81674b692328b45bf518378bf2bd90, type: 2}
+  - {fileID: 11400000, guid: 4c81674b692328b45bf518378bf2bd90, type: 2}
   - {fileID: 11400000, guid: 8a35ff498e685a24fb4d0f825bb0d682, type: 2}
   - {fileID: 11400000, guid: 8a35ff498e685a24fb4d0f825bb0d682, type: 2}
   deckCountText: {fileID: 955484096}
@@ -2213,6 +2209,17 @@ MonoBehaviour:
   turnCountText: {fileID: 1213936114}
   turnIndicatorText: {fileID: 440586150}
   cpuDeck:
+  - {fileID: 11400000, guid: 13f7a8c99b5027a48a52999be63c441a, type: 2}
+  - {fileID: 11400000, guid: 13f7a8c99b5027a48a52999be63c441a, type: 2}
+  - {fileID: 11400000, guid: 13f7a8c99b5027a48a52999be63c441a, type: 2}
+  - {fileID: 11400000, guid: 13f7a8c99b5027a48a52999be63c441a, type: 2}
+  - {fileID: 11400000, guid: 13f7a8c99b5027a48a52999be63c441a, type: 2}
+  - {fileID: 11400000, guid: 13f7a8c99b5027a48a52999be63c441a, type: 2}
+  - {fileID: 11400000, guid: 13f7a8c99b5027a48a52999be63c441a, type: 2}
+  - {fileID: 11400000, guid: 13f7a8c99b5027a48a52999be63c441a, type: 2}
+  - {fileID: 11400000, guid: 13f7a8c99b5027a48a52999be63c441a, type: 2}
+  - {fileID: 11400000, guid: 13f7a8c99b5027a48a52999be63c441a, type: 2}
+  - {fileID: 11400000, guid: 13f7a8c99b5027a48a52999be63c441a, type: 2}
   - {fileID: 11400000, guid: 13f7a8c99b5027a48a52999be63c441a, type: 2}
   - {fileID: 11400000, guid: 13f7a8c99b5027a48a52999be63c441a, type: 2}
   - {fileID: 11400000, guid: 13f7a8c99b5027a48a52999be63c441a, type: 2}

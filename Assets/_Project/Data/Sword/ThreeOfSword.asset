@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: ThreeOfSword
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   cardName: Three Of Swords
-  damage: 0
+  damage: 1
   money: 0
   type: 0
   useType: 1
   glowColor: {r: 1, g: 1, b: 1, a: 1}
-  powerUps: []
+  powerUps:
+  - {fileID: 11400000, guid: 318e5ae096ae43842a6f6e95fc896750, type: 2}
   powerDowns: []
-  artwork: {fileID: 0}
+  manaCost: 2
+  artwork: {fileID: -9013540867126866671, guid: e5ed1ea84690aee47b25c5becdec2282, type: 3}

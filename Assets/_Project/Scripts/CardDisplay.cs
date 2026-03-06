@@ -69,6 +69,7 @@ public class CardDisplay : MonoBehaviour,
         {
             Debug.Log("Targeting is active, sending to ResolveTargeting");
             GameManager.Instance.ResolveTargeting(this);
+            return;
         }
     }
 
