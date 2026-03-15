@@ -74,6 +74,20 @@ public class BoardManager : MonoBehaviour
         
     }
     public void CheckWholeBoard()
+    public bool IsCellOccupied(Vector2Int cell)
+    {
+        return BoardManager.Instance.GetCardAt(cell) != null;
+    }
+
+    private Vector2Int[] directions = new Vector2Int[]
+    {
+        new Vector2Int(1, 0), 
+        new Vector2Int(0, 1),   
+        new Vector2Int(-1, 1)   
+    };
+
+
+    void CheckWholeBoard()
     {
         List<Vector2Int> cellsToRemove = new List<Vector2Int>();
 
@@ -169,4 +183,5 @@ public class BoardManager : MonoBehaviour
     }
 
 
+        
 }

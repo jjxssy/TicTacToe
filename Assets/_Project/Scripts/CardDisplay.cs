@@ -188,6 +188,7 @@ public class CardDisplay : MonoBehaviour,
         GameManager.Instance.SpendMana(data.manaCost);
 
         if (targetTilemap.HasTile(cellPos) && !GameManager.Instance.IsCellOccupied(new Vector2Int(cellPos.x, cellPos.y)) && data != null && data.useType == CardData.UseType.Unit)
+        if (targetTilemap.HasTile(cellPos) && !BoardManager.Instance.IsCellOccupied(new Vector2Int(cellPos.x, cellPos.y)))
         {
             OnCardPlacedOnBoard?.Invoke(data, new Vector2Int(cellPos.x, cellPos.y));
             
