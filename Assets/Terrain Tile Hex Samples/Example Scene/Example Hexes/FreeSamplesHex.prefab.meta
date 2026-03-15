@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 0e86bebdc7e116c4e8604993e763a8d8
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 191945
+  packageName: 'Tiles and Hexes: 2D Painted Terrain Samples'
+  packageVersion: 1.0
+  assetPath: Assets/Terrain Tile Hex Samples/Example Scene/Example Hexes/FreeSamplesHex.prefab
+  uploadId: 424161

@@ -1,13 +1,22 @@
 
-using System.Collections; // חשוב בשביל IEnumerator
+using System.Collections; 
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using System;
+using Random = UnityEngine.Random;
 
 public enum GameState { PlayerTurn, CPUTurn, Busy, GameOver }
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+    public Deck playerDeck;
+
+    public TurnTimer turnTimer;
+    public bool isItPlayerTurn;
+
+    [HideInInspector] public float damageMultiplier = 1f;
 
     [Header("Setup")]
     public GameObject cardPrefab;
@@ -16,8 +25,27 @@ public class GameManager : MonoBehaviour
     [Header("Turn Management")]
     public GameState currentState;
 
+    [Header("UI References")]
+    public TextMeshProUGUI turnCountText;    
+    public TextMeshProUGUI turnIndicatorText;
+
     [Header("CPU Settings")]
     public List<CardData> cpuDeck; 
+
+    [Header("Mechanics")]
+    public float reverseChanceBonus = 0f; 
+
+    [Header("Mana Settings")]
+    public int currentMana = 3;
+    public const int MAX_MANA = 3;
+    [SerializeField] private TextMeshProUGUI manaText;
+
+    private int TurnCount = 0;
+
+    private bool isProcessingEffects = false;
+
+    private Action<CardDisplay> pendingTargetAction;
+    public bool isSelectingTarget = false;
 
     private void Awake()
     {
@@ -27,6 +55,16 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         SetState(GameState.PlayerTurn);
+        for (int i = 0; i < 5; i++)
+        {
+            if (playerDeck != null && playerDeck.cards.Count > 0)
+            {
+                int randomIndex = Random.Range(0, playerDeck.cards.Count);
+                CardData drawnCard = playerDeck.cards[randomIndex];
+                playerDeck.cards.RemoveAt(randomIndex);
+                HandleCardDrawn(drawnCard);
+            }
+        }
     }
 
     private void OnEnable()
@@ -44,25 +82,74 @@ public class GameManager : MonoBehaviour
     public void SetState(GameState newState)
     {
         currentState = newState;
-        Debug.Log("Current State: " + currentState);
+        //Debug.Log("Current State: " + currentState);
+        isItPlayerTurn = (currentState == GameState.PlayerTurn);
+
+        if (currentState == GameState.PlayerTurn)
+        {
+            turnTimer?.StartTimer();
+            Debug.Log("Player's turn started. Timer started.");
+            TurnCount++;
+            Debug.Log("Turn Count: " + TurnCount);
+            currentMana = MAX_MANA;
+            UpdateVisualUI();
+           
+        }
+        else
+        {
+            turnTimer?.StopTimer(); // עוצר בתור CPU
+        }
+        UpdateVisualUI();
 
         if (currentState == GameState.CPUTurn)
         {
             StartCoroutine(CPUTurnRoutine());
+            Debug.Log("CPU's turn started. Executing CPU actions...");
         }
-    }
 
+    }
+    public void EndTurn()
+    {
+        if (currentState != GameState.PlayerTurn) return; 
+        if (isSelectingTarget) return;
+        if (playerDeck != null && playerDeck.cards.Count > 0)
+        {
+            int randomIndex = Random.Range(0, playerDeck.cards.Count);
+            CardData drawnCard = playerDeck.cards[randomIndex];
+            playerDeck.cards.RemoveAt(randomIndex);
+            HandleCardDrawn(drawnCard);
+        }
+        SetState(GameState.CPUTurn);
+    }
+    public void ResumePlayerTurn()
+    {
+        currentState = GameState.PlayerTurn;
+        isItPlayerTurn = true;
+        turnTimer?.StartTimer();
+        UpdateVisualUI();
+        Debug.Log("Resumed player turn.");
+    }
     private void HandleCardDrawn(CardData data)
     {
+
+        int cardsInHand = handTransform.childCount;
+
+        if (cardsInHand >= 8)
+        {
+            Debug.Log("היד מלאה! הקלף נהרס.");
+            return; 
+        }
         Debug.Log("GameManager: Received draw event. Spawning card...");
         GameObject newCard = Instantiate(cardPrefab, handTransform);
-        newCard.GetComponent<CardDisplay>().LoadCard(data);
+        CardDisplay display = newCard.GetComponent<CardDisplay>();
+        display.LoadCard(data);
+        display.isPlayerCard = true;
     }
-
     IEnumerator CPUTurnRoutine()
     {
         
         yield return new WaitForSeconds(1.5f); 
+        //isPlayerCard = false;
 
         List<Vector2Int> possibleMoves = BoardManager.Instance.GetEmptyCells();
 
@@ -75,10 +162,7 @@ public class GameManager : MonoBehaviour
             
         }
         yield return new WaitForSeconds(0.5f);
-        SetState(GameState.PlayerTurn);
-        
     }
-
     public void SpawnCardOnBoard(CardData data, Vector2Int cell)
     {
         Vector3 spawnPos = BoardManager.Instance.tilemap.GetCellCenterWorld(new Vector3Int(cell.x, cell.y, 0));
@@ -86,14 +170,183 @@ public class GameManager : MonoBehaviour
 
         GameObject newCard = Instantiate(cardPrefab, spawnPos, Quaternion.identity);
         CardDisplay display = newCard.GetComponent<CardDisplay>();
-        
+        bool isPlayer = (currentState == GameState.PlayerTurn);
+
         display.LoadCard(data);
-        display.SetAsPlaced(); 
+        display.SetAsPlaced();
+        display.isPlayerCard = isPlayer;
+
+        if (!isPlayer)
+            display.sr.color = new Color(1f, 0.6f, 0.6f, 1f);
+
+        BoardManager.Instance.RegisterCard(cell, data, isPlayer);
+        ApplyCardEffects(data, newCard);   
     }
 
+    internal bool IsCellOccupied(Vector2Int vector2Int)
+    {
+        if (BoardManager.Instance == null || BoardManager.Instance.tilemap == null)
+            return false;
 
+        Vector3 cellCenter = BoardManager.Instance.tilemap.GetCellCenterWorld(new Vector3Int(vector2Int.x, vector2Int.y, 0));
+        const float tolerance = 0.1f;
+        CardDisplay[] allCards = FindObjectsByType<CardDisplay>(FindObjectsSortMode.None);
+        foreach (var card in allCards)
+        {
+            Vector2 cardPos2D = new Vector2(card.transform.position.x, card.transform.position.y);
+            Vector2 cellPos2D = new Vector2(cellCenter.x, cellCenter.y);
+            if (Vector2.Distance(cardPos2D, cellPos2D) <= tolerance)
+                return true;
+        }
+        return false;
+    }
 
+    public void ApplyCardEffects(CardData data, GameObject cardObject)
+    {
+        if (isProcessingEffects) return;
+        EffectContext context = new EffectContext();
+        context.Card = data;
+        bool canBeReversed = data.powerDowns != null && data.powerDowns.Count > 0;
+        bool isReversed = false;
+        CardDisplay display = cardObject.GetComponent<CardDisplay>();
+        if (display != null && display.isSilenced)
+        {
+            Debug.Log("Card is silenced! Skipping all effects.");
+            StartCoroutine(PostEffectSequence());
+            return;
+        }
 
+        if (canBeReversed)
+        {
+            isReversed = UnityEngine.Random.Range(0f, 1f) <= 0.5f;
+            // הסיכוי הבסיסי הוא 0.5 (50%), ונוסיף לו את הבונוס מהבלבול
+            float finalReverseThreshold = 0.5f + reverseChanceBonus;
+            finalReverseThreshold = Mathf.Clamp(finalReverseThreshold, 0f, 1f);
 
-    
+            isReversed = UnityEngine.Random.Range(0f, 1f) <= finalReverseThreshold;
+
+            Debug.Log($"Card: {data.cardName} | Can be Reversed: {canBeReversed} | Reverse Chance: {finalReverseThreshold * 100}% | Is Reversed: {isReversed}");
+        }
+
+        context.IsReversed = isReversed;
+        if (isReversed)
+        {
+            cardObject.transform.rotation = Quaternion.Euler(0, 0, 180);
+            Debug.Log("reversed card! Applying powerDowns.");
+            
+        }
+        if (!isReversed)
+        {
+            foreach (var effect in data.powerUps)
+            {
+                if (effect != null) 
+                {
+                    effect.Execute(context);
+                    Debug.Log("Executing PowerUp: " + effect.name); 
+                }
+            }
+        }
+        else
+        {
+            foreach (var effect in data.powerDowns)
+            {
+                if (effect != null) effect.Execute(context);
+                Debug.Log("applied powerDown effect.");
+            }
+        }
+
+        if (!isSelectingTarget)
+        {
+            StartCoroutine(PostEffectSequence());
+        }
+    }
+
+    public bool CanAffordCard(int cost)
+    {
+        return currentMana >= cost;
+    }
+    public void SpendMana(int amount)
+    {
+        currentMana -= amount;
+        UpdateVisualUI();
+    }
+    public void StartTargeting(Action<CardDisplay> actionToPerform)
+    {
+        isSelectingTarget = true;
+        pendingTargetAction = actionToPerform;
+        
+        // מחיקתי מפה את SetState(GameState.Busy)! התור נשאר שלך.
+        
+        UpdateVisualUI(); // נעדכן את ה-UI שיגיד לך לבחור מטרה
+        Debug.Log("Targeting mode: ON");
+    }
+    public void ResolveTargeting(CardDisplay target)
+    {
+        if (!isSelectingTarget || pendingTargetAction == null) return;
+        
+        // הפעלת האפקט (למשל: השתקה, נזק)
+        pendingTargetAction.Invoke(target);
+        
+        // כיבוי מצב בחירת מטרה
+        isSelectingTarget = false;
+        pendingTargetAction = null;
+        
+        // קריטי: מעדכן את המסך כדי להעלים את הטקסט הצהוב!
+        UpdateVisualUI();
+        
+        // ממשיכים לבדיקת השלשות וכו'
+        StartCoroutine(PostEffectSequence());
+    }
+    private void UpdateVisualUI()
+    {
+        if (manaText != null) manaText.text = "Mana " + currentMana + "/3";
+
+        if (turnCountText != null)
+        {
+            turnCountText.text = $"Turn : {TurnCount}";
+        }
+        if (turnIndicatorText != null)
+        {
+            if (isSelectingTarget)
+            {
+                // אם אנחנו בטרגטינג, תציג טקסט צהוב
+                turnIndicatorText.text = "Select a Target!";
+                turnIndicatorText.color = Color.yellow;
+            }
+            else if (isItPlayerTurn)
+            {
+                turnIndicatorText.text = "Your Turn";
+                turnIndicatorText.color = Color.green;
+            }
+            else
+            {
+                turnIndicatorText.text = "Opponent's Turn";
+                turnIndicatorText.color = Color.red;
+            }
+        }
+    }
+
+    private IEnumerator PostEffectSequence()
+    {
+        isProcessingEffects = true;
+        
+        yield return new WaitForSeconds(0.4f);
+        Debug.Log("בדיקת שלישיות (Matches)...");
+        
+        // כאן תכניס את פונקציית הבדיקה שלך בעתיד
+        
+        yield return new WaitForSeconds(0.2f);
+        
+        isProcessingEffects = false;
+
+        // אם זה היה תור ה-CPU, עכשיו נעביר לשחקן
+        if (currentState == GameState.CPUTurn && !isSelectingTarget)
+        {
+            SetState(GameState.PlayerTurn);
+        }
+        
+        // מוודאים שה-UI תמיד מסונכרן למצב הנוכחי בסוף תהליך
+        UpdateVisualUI();
+    }
 }
+

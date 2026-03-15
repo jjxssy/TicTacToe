@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 34f41d154528ef84881274ecd040cade
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 191945
+  packageName: 'Tiles and Hexes: 2D Painted Terrain Samples'
+  packageVersion: 1.0
+  assetPath: Assets/Terrain Tile Hex Samples/Example Scene/Example Tiles/forestBroadleaf00.asset
+  uploadId: 424161

@@ -15,6 +15,10 @@ public class Hand : MonoBehaviour
         GameObject newCard = Instantiate(cardPrefab, transform);
         UpdateLayout();
     }
+    public void Start()
+    {
+        
+    }
 
     private void Update()
     {
