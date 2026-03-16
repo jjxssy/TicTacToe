@@ -73,7 +73,7 @@ public class BoardManager : MonoBehaviour
         CheckWholeBoard();
         
     }
-    public void CheckWholeBoard()
+    //public void CheckWholeBoard();
     public bool IsCellOccupied(Vector2Int cell)
     {
         return BoardManager.Instance.GetCardAt(cell) != null;
