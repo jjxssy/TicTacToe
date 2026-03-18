@@ -4,11 +4,6 @@ using TMPro;
 
 public class DifficultyController : MonoBehaviour
 {
-    public Button easyButton;
-    public Button normalButton;
-    public Button hardButton;
-    public Button nightmareButton;
-
     public Image easyImage;
     public Image normalImage;
     public Image hardImage;
@@ -17,61 +12,84 @@ public class DifficultyController : MonoBehaviour
     public TMP_Text descriptionText;
 
     public Button startingBonusButton;
-
-    public GameObject nightmareLockIcon;
+    public Toggle permadeathToggle;
 
     public Color selectedColor = new Color(1f, 0.9f, 0.4f);
     public Color normalColor = Color.white;
 
-    public Difficulty currentDifficulty = Difficulty.Normal;
-
-    bool nightmareUnlocked;
-
     void Start()
     {
-        nightmareUnlocked = PlayerPrefs.GetInt("NightmareUnlocked", 0) == 1;
-
-        nightmareButton.interactable = nightmareUnlocked;
-
-        if (nightmareLockIcon != null)
-            nightmareLockIcon.SetActive(!nightmareUnlocked);
-
-        SelectDifficulty(currentDifficulty);
+        SelectDifficulty(GameplaySettingsManager.Instance.difficulty);
     }
+
+public void SelectEasy()
+{
+    SelectDifficulty(Difficulty.Easy);
+}
+
+public void SelectNormal()
+{
+    SelectDifficulty(Difficulty.Normal);
+}
+
+public void SelectHard()
+{
+    SelectDifficulty(Difficulty.Hard);
+}
+
+public void SelectNightmare()
+{
+    SelectDifficulty(Difficulty.Nightmare);
+}
 
     public void SelectDifficulty(Difficulty difficulty)
     {
-        if (difficulty == Difficulty.Nightmare && !nightmareUnlocked)
-            return;
-
-        currentDifficulty = difficulty;
+        GameplaySettingsManager.Instance.SetDifficulty(difficulty);
 
         ResetButtonColors();
 
         switch (difficulty)
         {
             case Difficulty.Easy:
+
                 easyImage.color = selectedColor;
                 descriptionText.text = "Enemies are weaker and rewards are higher.";
+
                 startingBonusButton.interactable = true;
+                permadeathToggle.interactable = true;
+
                 break;
 
             case Difficulty.Normal:
+
                 normalImage.color = selectedColor;
                 descriptionText.text = "Balanced challenge recommended for new players.";
+
                 startingBonusButton.interactable = true;
+                permadeathToggle.interactable = true;
+
                 break;
 
             case Difficulty.Hard:
+
                 hardImage.color = selectedColor;
                 descriptionText.text = "Enemies are stronger and rewards are reduced.";
+
                 startingBonusButton.interactable = true;
+                permadeathToggle.interactable = true;
+
                 break;
 
             case Difficulty.Nightmare:
+
                 nightmareImage.color = selectedColor;
-                descriptionText.text = "Brutal mode. Starting bonuses are disabled.";
+                descriptionText.text = "Brutal mode. Permadeath forced. Starting bonuses disabled.";
+
+                permadeathToggle.isOn = true;
+
                 startingBonusButton.interactable = false;
+                permadeathToggle.interactable = false;
+
                 break;
         }
     }
