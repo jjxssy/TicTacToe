@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
     private int TurnCount = 0;
 
     private bool isProcessingEffects = false;
+    private CardData pendingSpellCard = null;
 
     private Action<CardDisplay> pendingTargetAction;
     public bool isSelectingTarget = false;
@@ -274,9 +275,7 @@ public class GameManager : MonoBehaviour
     {
         isSelectingTarget = true;
         pendingTargetAction = actionToPerform;
-        
-        // מחיקתי מפה את SetState(GameState.Busy)! התור נשאר שלך.
-        
+        pendingSpellCard = spellCard; 
         UpdateVisualUI(); // נעדכן את ה-UI שיגיד לך לבחור מטרה
         Debug.Log("Targeting mode: ON");
     }
@@ -346,6 +345,20 @@ public class GameManager : MonoBehaviour
         }
         
         // מוודאים שה-UI תמיד מסונכרן למצב הנוכחי בסוף תהליך
+        UpdateVisualUI();
+    }
+
+    public void CancelTargeting()
+    {
+        isSelectingTarget = false;
+        pendingTargetAction = null;
+        
+        if (pendingSpellCard != null)
+        {
+            HandleCardDrawn(pendingSpellCard); 
+            pendingSpellCard = null;
+        }
+        
         UpdateVisualUI();
     }
 }
